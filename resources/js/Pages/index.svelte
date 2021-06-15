@@ -7,13 +7,6 @@
 </script>
 
 
-<div class="test">{name}</div>
+<div class="text-red-500 text-center mt-4">{name}</div>
 
 <button on:click={ch}>change</button>
-
-
-<style>
-.test {
-    color: green;
-}
-</style>
