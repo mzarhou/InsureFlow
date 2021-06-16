@@ -13,15 +13,20 @@ require("laravel-mix-svelte")
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        require("tailwindcss"),
-    ])
     // @ts-ignore
     .svelte({
         dev: !mix.inProduction()
     })
+    .postCss('resources/css/app.css', 'public/css', [
+        require("tailwindcss"),
+    ])
     .webpackConfig({
         output: {
             chunkFilename: 'js/[name].js?id=[chunkhash]',
         }
     });
+
+
+if (mix.inProduction()) {
+    mix.version();
+}
