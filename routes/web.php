@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,8 +17,12 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render("index");
-});
+})->middleware("auth")->name("index");
 
 Route::get("/login", function () {
     return Inertia::render("Auth/Login");
-});
+})->middleware("guest")->name("login");
+
+
+Route::resource("gestion-client", ClientController::class)->middleware("auth")
+    ->only("index", "create", "store");

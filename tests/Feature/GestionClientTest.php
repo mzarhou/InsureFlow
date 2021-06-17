@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Client;
 use App\Models\Contrat;
+use App\Models\User;
 use App\Models\Vehicule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -11,17 +12,30 @@ use Tests\TestCase;
 
 class GestionClientTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->actingAs(User::factory()->create());
+    }
+
     /** @test */
     public function can_render_client_index_page()
     {
-        $response = $this->get("/gestion-client");
+        $response = $this->get(route("gestion-client.index"));
+        $response->assertStatus(200);
+    }
+
+    /** @test */
+    public function can_render_client_create_page()
+    {
+        $response = $this->get(route("gestion-client.create"));
         $response->assertStatus(200);
     }
 
     /** @test */
     public function add_client()
     {
-        $response = $this->post("/gestion-client", [
+        $response = $this->post(route("gestion-client.store"), [
             "personnelles" => [
                 "nom" => "Jamal",
                 "cin" => "3242343",
@@ -50,7 +64,7 @@ class GestionClientTest extends TestCase
         ]);
 
 
-        $response->assertStatus(302);
+        $response->assertStatus(201);
 
         $client = Client::where(["nom" => "Jamal", "tele" => "072346234", "addresse" => "example addresse"])->first();
         $this->assertNotNull($client);

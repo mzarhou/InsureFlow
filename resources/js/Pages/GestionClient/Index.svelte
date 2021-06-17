@@ -1,0 +1,66 @@
+<script>
+    import Layout from "@/Pages/Layouts/AdminLayout.svelte"
+    import { inertia } from "@inertiajs/inertia-svelte"
+    import Pagination from "@/Components/app/Pagination.svelte"
+    export let clients;
+</script>
+
+<Layout>
+    <main class="p-4">
+        <div class="flex flex-wrap-reverse justify-between -mt-4">
+            <a use:inertia href={route("gestion-client.create")} class="px-16 py-2 mt-4 mr-4 text-lg font-semibold text-white bg-yellow-500 rounded-lg">+</a>
+
+            <div class="flex items-center justify-end flex-grow mt-4">
+                <input placeholder="rechercher" class="w-full px-4 py-2 mr-2 border rounded-lg outline-none md:w-auto form-input focus:ring-2 focus:ring-yellow-500"/>
+                <div class="flex justify-end">
+                    <button class="px-4 py-2 font-semibold text-white bg-yellow-500 rounded-lg">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <table class="table w-full p-4 mt-4 bg-white rounded-lg shadow">
+            <thead>
+                <tr>
+                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                        #
+                    </th>
+                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                        Nom
+                    </th>
+                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                        CIN
+                    </th>
+                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                        Tele
+                    </th>
+                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {#each clients.data as client}
+                <tr class="text-gray-700">
+                    <td class="p-4 border dark:border-dark-5">
+                        {client?.id}
+                    </td>
+                    <td class="p-4 border dark:border-dark-5">
+                        {client?.nom}
+                    </td>
+                    <td class="p-4 border dark:border-dark-5">
+                        {client?.cin}
+                    </td>
+                    <td class="p-4 border dark:border-dark-5">
+                        {client?.tele}
+                    </td>
+                    <td class="p-4 text-center border dark:border-dark-5">
+                        <button class="text-green-500">Details</button>
+                    </td>
+                </tr>
+                {/each}
+            </tbody>
+        </table>
+        <Pagination links={clients.links} />
+    </main>
+</Layout>

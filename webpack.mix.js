@@ -20,11 +20,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss"),
     ])
-    .webpackConfig({
-        output: {
-            chunkFilename: 'js/[name].js?id=[chunkhash]',
-        }
-    });
+    .webpackConfig(require("./webpack.config"));
 
 
 if (mix.inProduction()) {

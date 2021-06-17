@@ -1,5 +1,8 @@
 <script>
+    import Layout from "@/Pages/Layouts/AdminLayout.svelte"
     let name = "Index Page";
 </script>
 
-<div>{name}</div>
+<Layout>
+    <div>{name}</div>
+</Layout>
