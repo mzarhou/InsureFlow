@@ -26,7 +26,7 @@ class CreateContratsTable extends Migration
             $table->foreign("vehicule_id")
                 ->references("id")
                 ->on("vehicules")
-                ->onDelete();
+                ->onDelete("cascade");
         });
     }
 

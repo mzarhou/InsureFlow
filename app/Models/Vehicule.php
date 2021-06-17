@@ -9,6 +9,8 @@ class Vehicule extends Model
 {
     use HasFactory;
 
+    protected $guarded = ["id"];
+
     public function contrat()
     {
         return $this->hasMany(Contrat::class);

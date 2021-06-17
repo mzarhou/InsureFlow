@@ -114,7 +114,7 @@
         </div>
     </div>
 
-    <div class="flex-grow pt-10">
+    <div class="flex-grow h-screen pt-10 overflow-y-auto">
         <slot />
     </div>
 </div>

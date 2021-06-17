@@ -23,9 +23,9 @@ class CreateVehiculesTable extends Migration
             $table->string('type_carrosserie')->nullable();
             $table->string('date_1er_mise_en');
             $table->string('usage')->nullable();
-            $table->string('cylindree')->default(0);
-            $table->string('remorques')->default(0);
-            $table->string('poids_total_en_charge');
+            $table->unsignedInteger('cylindree')->default(0);
+            $table->unsignedInteger('remorques')->default(0);
+            $table->unsignedInteger('poids_total_en_charge');
             $table->timestamps();
 
             $table->foreign("client_id")

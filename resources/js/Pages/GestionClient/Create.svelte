@@ -5,6 +5,7 @@ import Etap2 from "@/Components/sections/GestionClient/Create/Etap2.svelte";
 import Etap3 from "@/Components/sections/GestionClient/Create/Etap3.svelte";
 import { clientInfo } from "@/store/client";
 import Layout from "@/Pages/Layouts/AdminLayout.svelte"
+import { Inertia } from "@inertiajs/inertia"
 
 const components = [Etap1, Etap2, Etap3]
 let step = 0;
@@ -22,7 +23,7 @@ function previous() {
 }
 
 function handleSubmit () {
-    console.log($clientInfo)
+    Inertia.post(route("gestion-client.store"), $clientInfo);
 }
 
 </script>

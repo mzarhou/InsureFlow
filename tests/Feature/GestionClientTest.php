@@ -12,6 +12,36 @@ use Tests\TestCase;
 
 class GestionClientTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected $data = [
+        "personnelles" => [
+            "nom" => "Jamal",
+            "cin" => "3242343",
+            "tele" => "072346234",
+            "addresse" => "example addresse",
+        ],
+
+        "vehicule" => [
+            "puissance_energie" => "Gaz",
+            "numero_immatriculation" => "34135324134",
+            "marque_type" => "Mercedes",
+            "type_carrosserie" => "",
+            "date_1er_mise_en" => "2020-06-01",
+            "usage" => "C1X",
+            "cylindree" => "3",
+            "remorques" => "0",
+            "poids_total_en_charge" => "3500"
+        ],
+
+        "contrat" => [
+            "type_paiement" => "Virement",
+            "du_date" => "2021-06-16 19:40:44",
+            "au_date" => "2022-06-16 19:40:44",
+            "nombre_places" => "6"
+        ]
+    ];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,36 +65,9 @@ class GestionClientTest extends TestCase
     /** @test */
     public function add_client()
     {
-        $response = $this->post(route("gestion-client.store"), [
-            "personnelles" => [
-                "nom" => "Jamal",
-                "cin" => "3242343",
-                "tele" => "072346234",
-                "addresse" => "example addresse",
-            ],
+        $response = $this->post(route("gestion-client.store"), $this->data);
 
-            "vehicule" => [
-                "puissance_energie" => "Gaz",
-                "numero_immatriculation" => "34135324134",
-                "marque_type" => "Mercedes",
-                "type_carrosserie" => "",
-                "date_1er_mise_en" => "",
-                "usage" => "C1X",
-                "cylindree" => "3",
-                "remorques" => "0",
-                "poids_total_en_charge" => "3500"
-            ],
-
-            "contrat" => [
-                "type_paiement" => "Virement",
-                "du_date" => "2021-06-16 19:40:44",
-                "au_date" => "2022-06-16 19:40:44",
-                "nombre_places" => "6"
-            ]
-        ]);
-
-
-        $response->assertStatus(201);
+        $response->assertStatus(302);
 
         $client = Client::where(["nom" => "Jamal", "tele" => "072346234", "addresse" => "example addresse"])->first();
         $this->assertNotNull($client);
@@ -74,5 +77,15 @@ class GestionClientTest extends TestCase
 
         $contrat = Contrat::where(["du_date" => "2021-06-16 19:40:44", "au_date" => "2022-06-16 19:40:44"])->first();
         $this->assertNotNull($contrat);
+
+        $response->assertRedirect(route("gestion-client.index"));
+    }
+
+    /** @test */
+    public function unique_cin()
+    {
+        $this->post(route("gestion-client.store"), $this->data);
+        $response = $this->post(route("gestion-client.store"), $this->data);
+        $response->assertSessionHas("errors");
     }
 }
