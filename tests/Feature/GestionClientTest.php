@@ -31,14 +31,15 @@ class GestionClientTest extends TestCase
             "usage" => "C1X",
             "cylindree" => "3",
             "remorques" => "0",
-            "poids_total_en_charge" => "3500"
+            "poids_total_en_charge" => "3500",
+            "nombre_places" => "6"
         ],
 
         "contrat" => [
             "type_paiement" => "Virement",
             "du_date" => "2021-06-16 19:40:44",
             "au_date" => "2022-06-16 19:40:44",
-            "nombre_places" => "6"
+            "montant_total" => "2500",
         ]
     ];
 

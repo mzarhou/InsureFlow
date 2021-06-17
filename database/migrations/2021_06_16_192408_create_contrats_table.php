@@ -18,7 +18,6 @@ class CreateContratsTable extends Migration
             $table->unsignedBigInteger("vehicule_id");
 
             $table->string('type_paiement');
-            $table->unsignedInteger('nombre_places');
             $table->timestamp('du_date');
             $table->timestamp('au_date');
             $table->timestamps();

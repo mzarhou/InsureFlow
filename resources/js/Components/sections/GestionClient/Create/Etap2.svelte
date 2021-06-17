@@ -27,6 +27,7 @@ let options = [
     <input type="number" bind:value={$clientInfo.vehicule.poids_total_en_charge} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Poids total en charge" />
     <input type="date" bind:value={$clientInfo.vehicule.date_1er_mise_en} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Date 1er mise en" />
     <input type="text" bind:value={$clientInfo.vehicule.usage} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Usage: exp: C1X" />
+    <input type="number" bind:value={$clientInfo.vehicule.nombre_places} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Nombre de places" />
     <input type="number" bind:value={$clientInfo.vehicule.cylindree} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Cylindree" />
     <input type="number" bind:value={$clientInfo.vehicule.remorques} class="w-full px-4 py-2 mb-6 border rounded-md" placeholder="Remorques" />
 </div>

@@ -26,6 +26,7 @@ class CreateVehiculesTable extends Migration
             $table->unsignedInteger('cylindree')->default(0);
             $table->unsignedInteger('remorques')->default(0);
             $table->unsignedInteger('poids_total_en_charge');
+            $table->unsignedInteger('nombre_places');
             $table->timestamps();
 
             $table->foreign("client_id")

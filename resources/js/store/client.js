@@ -18,13 +18,13 @@ export const clientInfo = writable({
         usage: "",
         cylindree: "",
         remorques: "",
-        poids_total_en_charge: ""
+        poids_total_en_charge: "",
+        nombre_places: ""
     },
 
     contrat: {
         type_paiement: "",
         du_date: "",
-        au_date: "",
-        nombre_places: ""
+        au_date: ""
     }
 })
