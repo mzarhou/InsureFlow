@@ -25,6 +25,7 @@ export const clientInfo = writable({
     contrat: {
         type_paiement: "",
         du_date: "",
-        au_date: ""
+        au_date: "",
+        montant_total: ""
     }
 })

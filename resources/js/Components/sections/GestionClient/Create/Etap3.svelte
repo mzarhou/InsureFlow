@@ -26,6 +26,7 @@
 
 <div transition:fade={{ duration: 200 }}>
     <Dropdown bind:selectedValue={$clientInfo.contrat.type_paiement} bind:options placeHolder="Type de paiement" className="mb-4" />
+    <input type="number" bind:value={$clientInfo.contrat.montant_total} id="montant_total" class="w-full px-4 py-2 mb-3 border rounded-md" placeholder="montant total" />
     <label for="du">Du:</label>
     <input type="date" bind:value={$clientInfo.contrat.du_date} id="du" class="w-full px-4 py-2 mb-3 border rounded-md" placeholder="du: 24/07/2021" />
     <label for="au">Au:</label>
