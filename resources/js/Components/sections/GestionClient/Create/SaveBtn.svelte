@@ -6,7 +6,7 @@
 
     let route = window.route;
 
-    let showConfirmModal = true;
+    let showConfirmModal = false;
 
     function handleSubmit () {
         Inertia.post(route("gestion-clients.store"), $clientInfo);

@@ -65,6 +65,7 @@ class ChargeController extends Controller
      */
     public function destroy(Charge $charge)
     {
-        //
+        $charge->delete();
+        return redirect()->route("gestion-charges.index");
     }
 }

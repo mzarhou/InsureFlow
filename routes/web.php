@@ -28,8 +28,8 @@ Route::get("/login", function () {
 Route::middleware("auth")->group(function () {
     Route::resource("gestion-clients", ClientController::class)
         ->parameter("gestion-clients", "client")
-        ->only("index", "create", "store");
+        ->only("index", "create", "store", "show");
     Route::resource("gestion-charges", ChargeController::class)
         ->parameter("gestion-charges", "charge")
-        ->only("index", "store", "update");
+        ->only("index", "store", "update", "destroy");
 });

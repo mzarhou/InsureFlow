@@ -3,6 +3,7 @@ import Layout from "@/Pages/Layouts/AdminLayout.svelte";
 import { Inertia } from "@inertiajs/inertia"
 import EditForm from "@/Components/sections/GestionCharges/Index/EditForm.svelte"
 import AddForm from "@/Components/sections/GestionCharges/Index/AddForm.svelte"
+import DeleteForm from "@/Components/sections/GestionCharges/Index/DeleteForm.svelte"
 import dayjs from "dayjs";
 
 export let charges = [];
@@ -11,7 +12,6 @@ export let charges = [];
 <Layout>
     <main class="p-4">
         <div class="flex flex-wrap-reverse justify-between -mt-4">
-
             <!-- ajouter -->
             <AddForm />
         </div>
@@ -41,6 +41,7 @@ export let charges = [];
                     <td class="p-4 text-center border dark:border-dark-5">
                         <!-- Modifier -->
                         <EditForm charge={charge} />
+                        <DeleteForm charge={charge} />
                     </td>
                 </tr>
                 {/each}

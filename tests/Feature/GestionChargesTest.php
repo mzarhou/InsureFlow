@@ -11,6 +11,8 @@ use Tests\TestCase;
 class GestionChargesTest extends TestCase
 {
 
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -52,6 +54,17 @@ class GestionChargesTest extends TestCase
         $this->assertEquals($charge->description, "test description");
 
         $response->assertStatus(302);
+        $response->assertRedirect(route("gestion-charges.index"));
+    }
+
+    /** @test */
+    public function charge_can_be_deleted()
+    {
+        $charge = Charge::factory()->create();
+
+        $response = $this->delete(route("gestion-charges.destroy", $charge));
+
+        $this->assertNull($charge->fresh());
         $response->assertRedirect(route("gestion-charges.index"));
     }
 }

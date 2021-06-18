@@ -7,7 +7,7 @@ import Layout from "@/Pages/Layouts/AdminLayout.svelte"
 import SaveBtn from "@/Components/sections/GestionClient/Create/SaveBtn.svelte";
 
 const components = [Etap1, Etap2, Etap3]
-let step = 2;
+let step = 0;
 
 function next() {
     if (step < components.length) {
