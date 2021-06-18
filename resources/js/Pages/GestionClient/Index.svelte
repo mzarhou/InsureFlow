@@ -2,9 +2,25 @@
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
     import { inertia } from "@inertiajs/inertia-svelte"
     import Pagination from "@/Components/app/Pagination.svelte"
+    import { Inertia } from "@inertiajs/inertia"
+    import { onMount } from "svelte";
+
     export let clients;
 
     let route = window.route;
+
+    let search = "";
+    let searched = false;
+
+    function handleSearch () {
+        Inertia.get(
+            route('gestion-clients.index') + '?search=' + search,
+            {
+                only: ["users"]
+            }
+        );
+        searched = true;
+    }
 </script>
 
 <Layout>
@@ -12,14 +28,14 @@
         <div class="flex flex-wrap-reverse justify-between -mt-4">
             <a use:inertia href={route("gestion-clients.create")} class="px-16 py-2 mt-4 mr-4 text-lg font-semibold text-white bg-yellow-500 rounded-lg">+</a>
 
-            <div class="flex items-center justify-end flex-grow mt-4">
-                <input placeholder="rechercher" class="w-full px-4 py-2 mr-2 border rounded-lg outline-none md:w-auto form-input focus:ring-2 focus:ring-yellow-500"/>
+            <form on:submit|preventDefault={handleSearch} class="flex items-center justify-end flex-grow mt-4">
+                <input bind:value={search} placeholder="rechercher" class="w-full px-4 py-2 mr-2 border rounded-lg outline-none md:w-auto form-input focus:ring-2 focus:ring-yellow-500"/>
                 <div class="flex justify-end">
-                    <button class="px-4 py-2 font-semibold text-white bg-yellow-500 rounded-lg">
+                    <button type="submit" class="px-4 py-2 font-semibold text-white bg-yellow-500 rounded-lg">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
         <table class="table w-full p-4 mt-4 bg-white rounded-lg shadow">
             <thead>
@@ -57,12 +73,12 @@
                         {client?.tele}
                     </td>
                     <td class="p-4 text-center border dark:border-dark-5">
-                        <button class="text-green-500">Details</button>
+                        <a href={route("gestion-clients.show", client?.id)} use:inertia class="text-green-500">Details</a>
                     </td>
                 </tr>
                 {/each}
             </tbody>
         </table>
-        <Pagination links={clients.links} />
+        <Pagination links={clients.links} search={search} searched={searched} />
     </main>
 </Layout>

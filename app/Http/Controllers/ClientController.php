@@ -14,15 +14,26 @@ class ClientController extends Controller
 {
     public function index()
     {
-        $clients = Client::query()->paginate(10);
         return Inertia::render("GestionClient/Index", [
-            "clients" => $clients,
+            "clients" => fn () => Client::query()->when(request()->search, function ($query, $search) {
+                return
+                    $query->where("nom", "like", '%' . $search . '%')
+                        ->orWhere("cin", "like", '%' . $search . '%')
+                        ->orWhere("tele", "like", '%' . $search . '%');
+            })->paginate(10),
         ]);
     }
 
     public function create()
     {
         return Inertia::render("GestionClient/Create");
+    }
+
+    public function show(Client $client)
+    {
+        return Inertia::render("GestionClient/Show", [
+            "client" => $client
+        ]);
     }
 
     public function store(Request $request)
