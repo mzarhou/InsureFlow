@@ -21,8 +21,17 @@ class ContratFactory extends Factory
      */
     public function definition()
     {
+        $types_paiement = [
+            'Espece',
+            'Cheque',
+            'Credit',
+            'Virement',
+        ];
+
         return [
-            //
+            'type_paiement' => $types_paiement[array_rand($types_paiement)],
+            'du_date' => $this->faker->date(),
+            'au_date' => $this->faker->date()
         ];
     }
 }

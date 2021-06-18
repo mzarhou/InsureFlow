@@ -13,7 +13,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        \App\Models\Client::factory(100)->create();
+        $this->call(UserSeeder::class);
+
+        \App\Models\Client::factory(100)
+            ->afterCreating(function ($client) {
+                \App\Models\Vehicule::factory()
+                    ->afterCreating(function ($vehicule) {
+                        \App\Models\Contrat::factory()->create([
+                            "vehicule_id" => $vehicule->id
+                        ]);
+                    })
+                    ->create([
+                        "client_id" => $client->id,
+                    ]);
+            })
+            ->create();
+
     }
 }
