@@ -1,0 +1,27 @@
+<script>
+import Modal from "@/Components/app/Modal.svelte";
+import { useForm } from "@inertiajs/inertia-svelte"
+
+export let charge;
+
+let form = useForm({
+    montant: charge.montant,
+    description: charge.description,
+})
+
+function modifier () {
+    $form.put(route("gestion-charges.update", charge.id));
+}
+</script>
+
+<Modal>
+    <button slot="trigger" class="text-green-500">Edit</button>
+    <!-- form -->
+    <div class="max-w-sm p-4 bg-white rounded-lg">
+        <input value={$form.montant} type="number" placeholder="Montant (DH)" class="w-full px-4 py-2 border border-gray-200 rounded-md" />
+        <textarea bind:value={$form.description} type="text" placeholder="Description" class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-md"></textarea>
+        <div class="flex justify-end">
+            <button on:click={modifier} class="px-4 py-2 mt-4 text-white bg-green-500 rounded-lg">Modifier</button>
+        </div>
+    </div>
+</Modal>

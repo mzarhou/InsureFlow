@@ -33,7 +33,7 @@ class ClientController extends Controller
             $this->ajouter_contrat($request->input("contrat"), $vehicule->id);
         });
 
-        return redirect()->route("gestion-client.index");
+        return redirect()->route("gestion-clients.index");
     }
 
     private function ajouter_client($clientData): Client

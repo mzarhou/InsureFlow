@@ -52,21 +52,21 @@ class GestionClientTest extends TestCase
     /** @test */
     public function can_render_client_index_page()
     {
-        $response = $this->get(route("gestion-client.index"));
+        $response = $this->get(route("gestion-clients.index"));
         $response->assertStatus(200);
     }
 
     /** @test */
     public function can_render_client_create_page()
     {
-        $response = $this->get(route("gestion-client.create"));
+        $response = $this->get(route("gestion-clients.create"));
         $response->assertStatus(200);
     }
 
     /** @test */
     public function add_client()
     {
-        $response = $this->post(route("gestion-client.store"), $this->data);
+        $response = $this->post(route("gestion-clients.store"), $this->data);
 
         $response->assertStatus(302);
 
@@ -79,14 +79,14 @@ class GestionClientTest extends TestCase
         $contrat = Contrat::where(["du_date" => "2021-06-16 19:40:44", "au_date" => "2022-06-16 19:40:44"])->first();
         $this->assertNotNull($contrat);
 
-        $response->assertRedirect(route("gestion-client.index"));
+        $response->assertRedirect(route("gestion-clients.index"));
     }
 
     /** @test */
     public function unique_cin()
     {
-        $this->post(route("gestion-client.store"), $this->data);
-        $response = $this->post(route("gestion-client.store"), $this->data);
+        $this->post(route("gestion-clients.store"), $this->data);
+        $response = $this->post(route("gestion-clients.store"), $this->data);
         $response->assertSessionHas("errors");
     }
 }

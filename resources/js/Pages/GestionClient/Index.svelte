@@ -3,12 +3,14 @@
     import { inertia } from "@inertiajs/inertia-svelte"
     import Pagination from "@/Components/app/Pagination.svelte"
     export let clients;
+
+    let route = window.route;
 </script>
 
 <Layout>
     <main class="p-4">
         <div class="flex flex-wrap-reverse justify-between -mt-4">
-            <a use:inertia href={route("gestion-client.create")} class="px-16 py-2 mt-4 mr-4 text-lg font-semibold text-white bg-yellow-500 rounded-lg">+</a>
+            <a use:inertia href={route("gestion-clients.create")} class="px-16 py-2 mt-4 mr-4 text-lg font-semibold text-white bg-yellow-500 rounded-lg">+</a>
 
             <div class="flex items-center justify-end flex-grow mt-4">
                 <input placeholder="rechercher" class="w-full px-4 py-2 mr-2 border rounded-lg outline-none md:w-auto form-input focus:ring-2 focus:ring-yellow-500"/>

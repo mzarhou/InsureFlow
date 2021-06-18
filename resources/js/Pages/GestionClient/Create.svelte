@@ -10,6 +10,8 @@ import { Inertia } from "@inertiajs/inertia"
 const components = [Etap1, Etap2, Etap3]
 let step = 0;
 
+let route = window.route;
+
 function next() {
     if (step < components.length) {
         step = step + 1;
@@ -23,7 +25,7 @@ function previous() {
 }
 
 function handleSubmit () {
-    Inertia.post(route("gestion-client.store"), $clientInfo);
+    Inertia.post(route("gestion-clients.store"), $clientInfo);
 }
 
 </script>

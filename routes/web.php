@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,5 +25,11 @@ Route::get("/login", function () {
 })->middleware("guest")->name("login");
 
 
-Route::resource("gestion-client", ClientController::class)->middleware("auth")
-    ->only("index", "create", "store");
+Route::middleware("auth")->group(function () {
+    Route::resource("gestion-clients", ClientController::class)
+        ->parameter("gestion-clients", "client")
+        ->only("index", "create", "store");
+    Route::resource("gestion-charges", ChargeController::class)
+        ->parameter("gestion-charges", "charge")
+        ->only("index", "store", "update");
+});
