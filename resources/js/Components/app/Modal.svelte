@@ -5,7 +5,6 @@
     export let show = false;
     let triggerParent = null;
 
-
     onMount(() => {
         if (triggerParent?.firstChild) {
             const showModal = () => show = true;

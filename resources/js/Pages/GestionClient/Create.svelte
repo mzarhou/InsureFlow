@@ -3,14 +3,11 @@ import Steps from "@/Components/app/Steps.svelte";
 import Etap1 from "@/Components/sections/GestionClient/Create/Etap1.svelte";
 import Etap2 from "@/Components/sections/GestionClient/Create/Etap2.svelte";
 import Etap3 from "@/Components/sections/GestionClient/Create/Etap3.svelte";
-import { clientInfo } from "@/store/client";
 import Layout from "@/Pages/Layouts/AdminLayout.svelte"
-import { Inertia } from "@inertiajs/inertia"
+import SaveBtn from "@/Components/sections/GestionClient/Create/SaveBtn.svelte";
 
 const components = [Etap1, Etap2, Etap3]
-let step = 0;
-
-let route = window.route;
+let step = 2;
 
 function next() {
     if (step < components.length) {
@@ -24,10 +21,6 @@ function previous() {
     }
 }
 
-function handleSubmit () {
-    Inertia.post(route("gestion-clients.store"), $clientInfo);
-}
-
 </script>
 <Layout>
     <div class="p-4">
@@ -38,7 +31,7 @@ function handleSubmit () {
         <Steps step={step + 1} />
 
         <div class="max-w-2xl px-20 py-4 mx-auto mt-4">
-            <svelte:component this={components[step]} />
+            <svelte:component this={components[step] ?? components[step - 1]} />
             <div class="flex justify-between">
                 {#if step > 0}
                     <button on:click={previous} class="flex px-4 py-2 text-white bg-green-400 rounded-md">
@@ -53,10 +46,7 @@ function handleSubmit () {
                     </button>
                 {/if}
                 {#if step === (components.length - 1)}
-                    <button on:click={handleSubmit} class="flex px-4 py-2 text-white bg-green-400 rounded-md justify-self-end">
-                        Enregistrer
-                        <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </button>
+                    <SaveBtn />
                 {/if}
             </div>
         </div>
