@@ -29,8 +29,11 @@ class ClientController extends Controller
         return Inertia::render("GestionClient/Create");
     }
 
-    public function show(Client $client)
+    public function show($client_id)
     {
+        $client = Client::query()->where("id", $client_id)
+            ->with(["vehicules", "contrats"])
+            ->firstOrFail();
         return Inertia::render("GestionClient/Show", [
             "client" => $client
         ]);
