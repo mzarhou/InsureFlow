@@ -22,7 +22,7 @@ class ResiliationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "montant" => $this->faker->numberBetween(500, 1000),
         ];
     }
 }

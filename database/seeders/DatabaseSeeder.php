@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CreditSeeder::class);
         $this->call(PaiementCreditSeeder::class);
+        $this->call(ResiliationSeeder::class);
     }
 }

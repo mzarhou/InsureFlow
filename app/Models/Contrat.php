@@ -26,6 +26,11 @@ class Contrat extends Model
         return $this->hasOne(Credit::class);
     }
 
+    public function resiliation()
+    {
+        return $this->hasOne(Resiliation::class);
+    }
+
     public function paiments()
     {
         return $this->hasManyThrough(PaiementCredit::class, Credit::class);

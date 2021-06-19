@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resiliation;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,7 +16,16 @@ class ResiliationController extends Controller
      */
     public function index()
     {
-        return Inertia::render("Resiliation/Index");
+        return Inertia::render("Resiliation/Index", [
+            "resiliations" => fn () => Resiliation::with(["contrat.vehicule.client"])
+                ->when(request()->search, function (Builder $query, $search) {
+                    return $query->whereHas("contrat.vehicule.client", function (Builder $query) use ($search) {
+                        $query->where("nom", "like", '%' . $search . '%')
+                            ->orWhere("cin", "like", '%' . $search . '%');
+                    });
+                })
+                ->get()
+        ]);
     }
 
     /**

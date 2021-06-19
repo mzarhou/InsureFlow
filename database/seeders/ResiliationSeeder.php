@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contrat;
+use App\Models\Resiliation;
 use Illuminate\Database\Seeder;
 
 class ResiliationSeeder extends Seeder
@@ -13,6 +15,10 @@ class ResiliationSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Contrat::all()->random(10)->map(function ($contrat) {
+            Resiliation::factory()->create([
+                "contrat_id" => $contrat->id
+            ]);
+        });
     }
 }
