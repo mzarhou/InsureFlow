@@ -15,4 +15,9 @@ class Vehicule extends Model
     {
         return $this->hasMany(Contrat::class);
     }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }
