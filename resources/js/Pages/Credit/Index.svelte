@@ -7,6 +7,8 @@
         c.vehicule = c.contrat?.vehicule;
         c.client = c.contrat?.vehicule?.client;
         delete c.contrat.vehicule;
+        c.montant_restant = c.contrat.montant_total - c.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)
+
         return c;
     });
 
@@ -55,7 +57,7 @@
 
                     </thead>
                     <tbody>
-                        {#each credits as { client, vehicule, contrat }, key}
+                        {#each credits as { client, vehicule, contrat, montant_restant }, key}
                         <tr key={key}>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
@@ -74,7 +76,7 @@
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    todo
+                                    {montant_restant}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">

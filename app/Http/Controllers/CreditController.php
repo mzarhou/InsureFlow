@@ -15,7 +15,7 @@ class CreditController extends Controller
      */
     public function index()
     {
-        $credits = Credit::with(["contrat.vehicule.client"])->get();
+        $credits = Credit::with(["contrat.vehicule.client", "paiements"])->get();
 
         return Inertia::render("Credit/Index", [
             "credits" => $credits

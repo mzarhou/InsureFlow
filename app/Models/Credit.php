@@ -14,7 +14,7 @@ class Credit extends Model
         return $this->belongsTo(Contrat::class);
     }
 
-    public function paiement()
+    public function paiements()
     {
         return $this->hasMany(PaiementCredit::class, "credit_id");
     }
