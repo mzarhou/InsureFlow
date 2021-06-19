@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Credit;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class CreditController extends Controller
@@ -23,6 +24,9 @@ class CreditController extends Controller
                         $query->where("nom", "like", '%' . $search . '%')
                             ->orWhere("cin", "like", '%' . $search . '%');
                     });
+                })
+                ->when(request()->has("completed"), function (Builder $query) {
+                    return $query->where("completed", "!=", null);
                 })
                 ->get()
         ]);
@@ -86,7 +90,25 @@ class CreditController extends Controller
      */
     public function update(Request $request, Credit $credit)
     {
-        //
+        $credit->update($request->all());
+
+        return redirect()->route("credit.index");
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Credit  $credit
+     * @return \Illuminate\Http\Response
+     */
+    public function complete(Request $request, Credit $credit)
+    {
+        $credit->update([
+            "completed" => Carbon::now()
+        ]);
+
+        return redirect()->route("credit.show", $credit->id);
     }
 
     /**

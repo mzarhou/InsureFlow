@@ -17,6 +17,7 @@ class CreateCreditsTable extends Migration
             $table->id();
             $table->unsignedBigInteger("contrat_id")->unique();
             $table->unsignedInteger("montant_total");
+            $table->timestamp("completed")->default(null)->nullable();
             $table->timestamp("du");
             $table->timestamps();
 

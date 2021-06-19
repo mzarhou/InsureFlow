@@ -1,20 +1,37 @@
 <script>
     import Modal from "@/Components/app/Modal.svelte";
     import AddPaiementForm from "@/Components/sections/Credit/Show/AddPaiementForm.svelte"
+    import ConfirmCompleteCreditModal from "@/Components/sections/Credit/Show/ConfirmCompleteCreditModal.svelte";
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
     import dayjs from "dayjs"
     import { fade } from "svelte/transition"
 
     export let credit;
     $: paiments = credit?.paiements;
+    $: montant_restant = credit.contrat.montant_total - credit.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)
 </script>
 
 <Layout>
     <div class="max-w-2xl px-6 mx-auto mt-6">
-        <div>
-            <h3 class="text-xl text-gray-800 md:text-2xl">Paiements</h3>
+        <!-- add btn -->
+        {#if ! credit.completed}
+        <div class="flex items-center justify-between py-5 mt-2 rounded-t">
+            <div class="text-gray-600">
+                Montant Restant: {montant_restant} DH
+            </div>
+            <ConfirmCompleteCreditModal credit={credit} />
         </div>
-
+        {/if}
+        {#if paiments?.length > 0}
+        <div class="flex justify-between">
+            <h3 class="text-xl text-gray-800 md:text-2xl">Paiements</h3>
+            {#if credit.completed}
+            <p class="flex items-center px-4 py-2 bg-green-100">
+                <span>Complet</span>
+                <svg class="w-6 h-6 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+            </p>
+            {/if}
+        </div>
         <!-- list of paiements -->
         <div class="px-4 py-5 mt-2 border-t rounded-t sm:px-6">
             <div class="overflow-hidden bg-white shadow sm:rounded-md">
@@ -47,7 +64,8 @@
                 </ul>
             </div>
         </div>
-
+        {/if}
+        {#if ! credit.completed}
         <!-- add btn -->
         <div class="flex justify-end px-4 py-5 mt-2 rounded-t sm:px-6">
             <Modal>
@@ -55,5 +73,6 @@
                 <AddPaiementForm credit={credit} />
             </Modal>
         </div>
+        {/if}
     </div>
 </Layout>

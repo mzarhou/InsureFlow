@@ -14,10 +14,7 @@
 
     function handleSearch () {
         Inertia.get(
-            route('gestion-clients.index') + '?search=' + search,
-            {
-                only: ["users"]
-            }
+            route('gestion-clients.index') + '?search=' + search
         );
         searched = true;
     }

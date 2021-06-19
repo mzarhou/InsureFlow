@@ -5,6 +5,7 @@ import EditForm from "@/Components/sections/GestionCharges/Index/EditForm.svelte
 import AddForm from "@/Components/sections/GestionCharges/Index/AddForm.svelte"
 import DeleteForm from "@/Components/sections/GestionCharges/Index/DeleteForm.svelte"
 import dayjs from "dayjs";
+import { fade } from "svelte/transition";
 
 export let charges = [];
 </script>
@@ -33,8 +34,8 @@ export let charges = [];
                 </tr>
             </thead>
             <tbody>
-                {#each charges as charge}
-                <tr class="text-gray-700">
+                {#each charges as charge, key}
+                <tr key={key} class="text-gray-700" transition:fade={{ delay: 20 * key, duration: 300 }}>
                     <td class="p-4 border dark:border-dark-5">{dayjs(charge.created_at).format("DD-MM-YYYY HH:mm")}</td>
                     <td class="p-4 border dark:border-dark-5">{charge.montant}</td>
                     <td class="p-4 border dark:border-dark-5">{charge.description}</td>

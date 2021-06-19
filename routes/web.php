@@ -37,6 +37,9 @@ Route::middleware("auth")->group(function () {
     Route::resource("credit", CreditController::class)
         ->only("index", "show");
 
+    Route::put("credit/{credit}/complete", [CreditController::class, "complete"])
+        ->name("credit.complete");
+
     Route::resource("paiement", PaiementController::class)
         ->only("store");
 });
