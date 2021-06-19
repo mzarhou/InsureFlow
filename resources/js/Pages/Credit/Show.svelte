@@ -20,7 +20,7 @@
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <p class="text-gray-700 text-md dark:text-white md:truncate">
-                                        {paiement.montant} DH, {credit?.contrat?.vehicule?.numero_immatriculation}
+                                        {paiement.montant} DH, ID Contrat: {credit?.contrat?.id}
                                     </p>
                                 </div>
                                 <div class="mt-2 sm:flex sm:justify-between">
