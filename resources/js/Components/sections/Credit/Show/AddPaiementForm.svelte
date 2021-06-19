@@ -13,10 +13,6 @@
             selected: false,
         },
         {
-            text: "Credit",
-            selected: false,
-        },
-        {
             text: "Virement",
             selected: false,
         },

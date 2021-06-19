@@ -4,6 +4,7 @@
     import Pagination from "@/Components/app/Pagination.svelte"
     import { Inertia } from "@inertiajs/inertia"
     import { onMount } from "svelte";
+import ResiliationBtn from "@/Components/sections/GestionClient/Index/ResiliationBtn.svelte";
 
     export let clients;
 

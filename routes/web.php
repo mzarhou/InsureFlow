@@ -44,5 +44,5 @@ Route::middleware("auth")->group(function () {
     Route::resource("paiement", PaiementController::class)
         ->only("store");
     Route::resource("resiliation", ResiliationController::class)
-        ->only("index");
+        ->only("index", "store");
 });

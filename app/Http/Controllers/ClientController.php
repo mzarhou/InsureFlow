@@ -20,7 +20,8 @@ class ClientController extends Controller
                     $query->where("nom", "like", '%' . $search . '%')
                         ->orWhere("cin", "like", '%' . $search . '%')
                         ->orWhere("tele", "like", '%' . $search . '%');
-            })->paginate(10),
+            })
+            ->paginate(10),
         ]);
     }
 
@@ -32,7 +33,7 @@ class ClientController extends Controller
     public function show($client_id)
     {
         $client = Client::query()->where("id", $client_id)
-            ->with(["vehicules", "contrats"])
+            ->with(["vehicules", "contrats.vehicule", "contrats.credit.paiements"])
             ->firstOrFail();
         return Inertia::render("GestionClient/Show", [
             "client" => $client
