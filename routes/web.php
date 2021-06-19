@@ -4,6 +4,7 @@ use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\PaiementController;
+use App\Http\Controllers\ResiliationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -42,4 +43,6 @@ Route::middleware("auth")->group(function () {
 
     Route::resource("paiement", PaiementController::class)
         ->only("store");
+    Route::resource("resiliation", ResiliationController::class)
+        ->only("index");
 });
