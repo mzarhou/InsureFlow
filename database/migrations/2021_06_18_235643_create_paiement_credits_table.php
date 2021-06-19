@@ -17,6 +17,7 @@ class CreatePaiementCreditsTable extends Migration
             $table->id();
             $table->unsignedBigInteger("credit_id");
             $table->unsignedInteger("montant");
+            $table->string('type_paiement');
             $table->timestamps();
 
             $table->foreign("credit_id")

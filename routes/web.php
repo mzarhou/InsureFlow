@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreditController;
+use App\Http\Controllers\PaiementController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,4 +36,7 @@ Route::middleware("auth")->group(function () {
         ->only("index", "store", "update", "destroy");
     Route::resource("credit", CreditController::class)
         ->only("index", "show");
+
+    Route::resource("paiement", PaiementController::class)
+        ->only("store");
 });

@@ -34,7 +34,7 @@
     </div>
 
     {#if open}
-    <div transition:fade={{ duration: 150 }} class="absolute inset-x-0 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+    <div transition:fade={{ duration: 150 }} class="absolute inset-x-0 z-50 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
         <div class="py-1" role="none">
             {#each options as option}
                 <option on:click={() => selectOption(option)} selected={option.selected} class="block cursor-pointer px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 {option.selected ? 'bg-gray-100 text-gray-900' : 'text-gray-700'}" tabindex="-1">{option.text}</option>

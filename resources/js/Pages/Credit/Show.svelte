@@ -1,6 +1,9 @@
 <script>
+    import Modal from "@/Components/app/Modal.svelte";
+    import AddPaiementForm from "@/Components/sections/Credit/Show/AddPaiementForm.svelte"
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
     import dayjs from "dayjs"
+    import { fade } from "svelte/transition"
 
     export let credit;
     $: paiments = credit?.paiements;
@@ -11,16 +14,18 @@
         <div>
             <h3 class="text-xl text-gray-800 md:text-2xl">Paiements</h3>
         </div>
+
+        <!-- list of paiements -->
         <div class="px-4 py-5 mt-2 border-t rounded-t sm:px-6">
-            <div class="overflow-hidden bg-white shadow dark:bg-gray-800 sm:rounded-md">
+            <div class="overflow-hidden bg-white shadow sm:rounded-md">
                 <ul class="divide-y divide-gray-200">
-                    {#each paiments as paiement}
-                    <li>
+                    {#each paiments as paiement, i}
+                    <li key={i} transition:fade={{ delay: 100 * i,duration: 200 }}>
                         <div class="flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-900">
                             <div class="px-4 py-4 sm:px-6">
                                 <div class="flex items-center justify-between">
                                     <p class="text-gray-700 text-md dark:text-white md:truncate">
-                                        {paiement.montant} DH, ID Contrat: {credit?.contrat?.id}
+                                        {paiement.montant} DH, ID Contrat: {credit?.contrat?.id}, {paiement.type_paiement}
                                     </p>
                                 </div>
                                 <div class="mt-2 sm:flex sm:justify-between">
@@ -42,6 +47,13 @@
                 </ul>
             </div>
         </div>
-    </div>
 
+        <!-- add btn -->
+        <div class="flex justify-end px-4 py-5 mt-2 rounded-t sm:px-6">
+            <Modal>
+                <button slot="trigger" class="px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200">Ajouter un paiement</button>
+                <AddPaiementForm credit={credit} />
+            </Modal>
+        </div>
+    </div>
 </Layout>

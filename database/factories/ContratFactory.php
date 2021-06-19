@@ -31,8 +31,8 @@ class ContratFactory extends Factory
         return [
             'type_paiement' => $types_paiement[array_rand($types_paiement)],
             'montant_total' => $this->faker->numberBetween(500, 10000),
-            'du_date' => $this->faker->date(),
-            'au_date' => $this->faker->date()
+            'du_date' => $this->faker->dateTime(),
+            'au_date' => $this->faker->dateTime()
         ];
     }
 }
