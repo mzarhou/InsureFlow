@@ -22,7 +22,7 @@ class PaiementCreditFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "montant" => $this->faker->numberBetween(100, 1000),
         ];
     }
 }

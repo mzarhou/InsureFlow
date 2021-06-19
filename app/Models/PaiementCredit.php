@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PaiementCredit extends Model
 {
     use HasFactory;
+
+    protected $guarded = ["id"];
+
+    public function credit()
+    {
+        return $this->belongsTo(Credit::class, "credit_id");
+    }
 }

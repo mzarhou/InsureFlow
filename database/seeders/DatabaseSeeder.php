@@ -29,5 +29,7 @@ class DatabaseSeeder extends Seeder
             })
             ->create();
 
+        $this->call(CreditSeeder::class);
+        $this->call(PaiementCreditSeeder::class);
     }
 }

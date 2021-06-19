@@ -20,4 +20,14 @@ class Contrat extends Model
     {
         return $this->vehicule->client();
     }
+
+    public function credit()
+    {
+        return $this->hasOne(Credit::class);
+    }
+
+    public function paiments()
+    {
+        return $this->hasManyThrough(PaiementCredit::class, Credit::class);
+    }
 }

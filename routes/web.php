@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChargeController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CreditController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,4 +33,6 @@ Route::middleware("auth")->group(function () {
     Route::resource("gestion-charges", ChargeController::class)
         ->parameter("gestion-charges", "charge")
         ->only("index", "store", "update", "destroy");
+    Route::resource("credit", CreditController::class)
+        ->only("index");
 });

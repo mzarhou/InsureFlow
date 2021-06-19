@@ -15,7 +15,14 @@ class CreatePaiementCreditsTable extends Migration
     {
         Schema::create('paiement_credits', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("credit_id");
+            $table->unsignedInteger("montant");
             $table->timestamps();
+
+            $table->foreign("credit_id")
+                ->references("id")
+                ->on("credits")
+                ->onDelete("cascade");
         });
     }
 

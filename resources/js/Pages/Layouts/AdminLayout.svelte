@@ -8,7 +8,6 @@
     let show = true;
     let sidebarWidth = 0;
     let documentWidth = 0;
-    export let url = '';
 
     onMount(() => {
         sidebarWidth = document.getElementsByClassName("sidebar")[0].getBoundingClientRect().width
@@ -28,28 +27,8 @@
         show = true;
         gsap.to(".sidebar", {x: 0, width: sidebarWidth, duration: .3});
     }
-
-    function isUrl (...urls) {
-        if (urls[0] === '') {
-            return url === ''
-        }
-
-        return urls.filter(link => url.startsWith(link)).length
-    }
 </script>
 
-
-<style>
-.close-btn {
-    margin-right: 40px;
-    margin-top: 10px;
-}
-
-.open-btn {
-    margin-left: 16px;
-    margin-top: 10px;
-}
-</style>
 
 {#if !show}
     <button on:click={openSidebar} class="absolute left-0 text-gray-600 open-btn">
@@ -94,6 +73,16 @@
                         <span class="flex-grow text-right">
                         </span>
                     </a>
+                    <a href={route("credit.index")}
+                        use:inertia
+                        class="{route().current('credit.*') ? 'bg-gray-100 text-gray-800' : 'text-gray-600'} flex items-center p-2 my-6transition-colors duration-200 rounded-lg hover:text-gray-800 hover:bg-gray-100">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                        <span class="mx-4 text-lg font-normal">
+                            Credit
+                        </span>
+                        <span class="flex-grow text-right">
+                        </span>
+                    </a>
                 </nav>
                 <div class="absolute bottom-0 my-10">
                     <!-- <a use:inertia class:bg-gray-100={isUrl('todo-test')}  href="" class="flex items-center px-8 py-2 text-gray-600 transition-colors duration-200 hover:text-gray-800">
@@ -114,3 +103,15 @@
         <slot />
     </div>
 </div>
+
+<style>
+.close-btn {
+    margin-right: 40px;
+    margin-top: 10px;
+}
+
+.open-btn {
+    margin-left: 16px;
+    margin-top: 10px;
+}
+</style>

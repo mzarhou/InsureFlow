@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Credit;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class CreditController extends Controller
 {
@@ -14,7 +15,11 @@ class CreditController extends Controller
      */
     public function index()
     {
-        //
+        $credits = Credit::with(["contrat.vehicule.client"])->get();
+
+        return Inertia::render("Credit/Index", [
+            "credits" => $credits
+        ]);
     }
 
     /**

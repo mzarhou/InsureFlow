@@ -15,7 +15,15 @@ class CreateCreditsTable extends Migration
     {
         Schema::create('credits', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("contrat_id")->unique();
+            $table->unsignedInteger("montant_total");
+            $table->timestamp("du");
             $table->timestamps();
+
+            $table->foreign("contrat_id")
+                ->references("id")
+                ->on("contrats")
+                ->onDelete("cascade");
         });
     }
 

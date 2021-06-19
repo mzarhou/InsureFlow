@@ -20,4 +20,9 @@ class Vehicule extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function credit()
+    {
+        return $this->hasOneThrough(Credit::class, Contrat::class);
+    }
 }

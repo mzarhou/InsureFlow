@@ -22,7 +22,8 @@ class CreditFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "montant_total" => $this->faker->numberBetween(500, 10000),
+            "du" => $this->faker->date(),
         ];
     }
 }
