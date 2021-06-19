@@ -11,7 +11,7 @@ class Vehicule extends Model
 
     protected $guarded = ["id"];
 
-    public function contrat()
+    public function contrats()
     {
         return $this->hasMany(Contrat::class);
     }
