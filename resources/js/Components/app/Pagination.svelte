@@ -3,11 +3,11 @@
     <div class="flex flex-wrap mx-auto mt-4 -mb-1">
     <!-- previous -->
     {#if firstLink.url === null}
-        <div class="px-4 py-3 mb-1 mr-1 text-sm leading-4 text-gray-400 border rounded">
+        <div class="px-4 py-3 mb-1 mr-1 text-sm leading-4 text-gray-400 border rounded cursor-not-allowed">
             {@html firstLink.label}
         </div>
     {:else}
-        <a use:inertia={{ preserveScroll: true }} href={firstLink.url + searchPart} class="px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded focus:border-indigo-500 focus:text-indigo-500">
+        <a use:inertia={{ preserveScroll: true }} href={firstLink.url + searchPart} class="px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded">
             {@html firstLink.label}
         </a>
     {/if}
@@ -18,7 +18,7 @@
                 {@html link.label}
             </div>
         {:else}
-            <a use:inertia={{ preserveScroll: true }} href={link.url + searchPart} class="{  link.active && 'bg-blue-700 text-white' } px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded focus:border-indigo-500 focus:text-indigo-500">
+            <a use:inertia={{ preserveScroll: true }} href={link.url + searchPart} class="{  link.active && 'bg-indigo-600 text-white' } px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded">
                 {@html link.label}
             </a>
         {/if}
@@ -30,7 +30,7 @@
                 {@html link.label}
             </div>
         {:else}
-            <a use:inertia={{ preserveScroll: true }} href={link.url + searchPart} class="{  link.active && 'bg-blue-700 text-white' } px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded focus:border-indigo-500 focus:text-indigo-500">
+            <a use:inertia={{ preserveScroll: true }} href={link.url + searchPart} class="{  link.active && 'bg-indigo-600 text-white' } px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded">
                 {@html link.label}
             </a>
         {/if}
@@ -38,11 +38,11 @@
 
     <!-- next -->
     {#if lastLink.url === null}
-        <div class="px-4 py-3 mb-1 mr-1 text-sm leading-4 text-gray-400 border rounded">
+        <div class="px-4 py-3 mb-1 mr-1 text-sm leading-4 text-gray-400 border rounded cursor-not-allowed">
             {@html lastLink.label}
         </div>
     {:else}
-        <a use:inertia={{ preserveScroll: true }} href={lastLink.url + searchPart} class="px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded focus:border-indigo-500 focus:text-indigo-500">
+        <a use:inertia={{ preserveScroll: true }} href={lastLink.url + searchPart} class="px-4 py-3 mb-1 mr-1 text-sm leading-4 border rounded">
             {@html lastLink.label}
         </a>
     {/if}
