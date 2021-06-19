@@ -1,18 +1,28 @@
 <script>
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
+    import { inertia } from "@inertiajs/inertia-svelte"
+    import { Inertia } from "@inertiajs/inertia"
+    const route = window.route;
 
     export let credits = [];
 
-    credits = credits.map(c => {
+    $: Credits = credits.map(c => {
         c.vehicule = c.contrat?.vehicule;
         c.client = c.contrat?.vehicule?.client;
-        delete c.contrat.vehicule;
         c.montant_restant = c.contrat.montant_total - c.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)
-
         return c;
     });
 
-    console.log(credits);
+    let searchValue = "";
+
+    function handleSearch () {
+        Inertia.get(
+            route('credit.index') + '?search=' + searchValue,
+            {
+                only: ["users"]
+            }
+        );
+    }
 </script>
 
 <Layout>
@@ -21,11 +31,11 @@
         <div class="flex flex-row justify-between w-full mb-1 sm:mb-0">
             <h2 class="text-2xl leading-tight">Credit</h2>
             <div class="text-end">
-                <form class="flex w-full max-w-sm space-x-3">
+                <form on:submit|preventDefault={handleSearch} class="flex w-full max-w-sm space-x-3">
                     <div class="relative ">
-                        <input type="text" class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="rechercher (nom, cin)"/>
+                        <input bind:value={searchValue} type="text" class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="rechercher (nom, cin)"/>
                     </div>
-                    <button class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200" type="submit">
+                    <button type="submit" class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200">
                         Filtrer
                     </button>
                 </form>
@@ -57,36 +67,41 @@
 
                     </thead>
                     <tbody>
-                        {#each credits as { client, vehicule, contrat, montant_restant }, key}
+                        {#each Credits as credit, key}
                         <tr key={key}>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {client?.nom}
+                                    {credit.client?.nom}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {client?.cin}
+                                    {credit.client?.cin}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {contrat?.montant_total}
+                                    {credit.contrat?.montant_total}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {montant_restant}
+                                    {credit.montant_restant}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {vehicule?.numero_immatriculation}
+                                    {credit.vehicule?.numero_immatriculation}
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <a href="/test" class="text-indigo-600 hover:text-indigo-900">
+                                <a use:inertia href={route("credit.show", credit.id)} class="relative text-indigo-600 hover:text-indigo-900">
                                     Details
+                                    {#if credit.paiements?.length > 0}
+                                    <span class="absolute top-0 right-0 block w-4 h-4 -mt-2 -mr-2 text-xs font-semibold text-center text-white rounded-full bg-c-2">
+                                        {credit.paiements?.length < 100 ? credit.paiements?.length : '...'}
+                                    </span>
+                                    {/if}
                                 </a>
                             </td>
                         </tr>

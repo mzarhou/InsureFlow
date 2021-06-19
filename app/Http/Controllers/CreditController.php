@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Credit;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -15,10 +16,15 @@ class CreditController extends Controller
      */
     public function index()
     {
-        $credits = Credit::with(["contrat.vehicule.client", "paiements"])->get();
-
         return Inertia::render("Credit/Index", [
-            "credits" => $credits
+            "credits" => fn () => Credit::with(["contrat.vehicule.client", "paiements"])
+                ->when(request()->search, function (Builder $query, $search) {
+                    return $query->whereHas("contrat.vehicule.client", function (Builder $query) use ($search) {
+                        $query->where("nom", "like", '%' . $search . '%')
+                            ->orWhere("cin", "like", '%' . $search . '%');
+                    });
+                })
+                ->get()
         ]);
     }
 
@@ -49,9 +55,15 @@ class CreditController extends Controller
      * @param  \App\Models\Credit  $credit
      * @return \Illuminate\Http\Response
      */
-    public function show(Credit $credit)
+    public function show($credit_id)
     {
-        //
+        $credit = Credit::query()->where("id", $credit_id)
+            ->with(["paiements", "contrat.vehicule"])
+            ->firstOrFail();
+
+        return Inertia::render("Credit/Show", [
+            "credit" => $credit
+        ]);
     }
 
     /**

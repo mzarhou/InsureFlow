@@ -34,5 +34,5 @@ Route::middleware("auth")->group(function () {
         ->parameter("gestion-charges", "charge")
         ->only("index", "store", "update", "destroy");
     Route::resource("credit", CreditController::class)
-        ->only("index");
+        ->only("index", "show");
 });
