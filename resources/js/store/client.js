@@ -26,6 +26,8 @@ export const clientInfo = writable({
         type_paiement: "",
         du_date: "",
         au_date: "",
-        montant_total: ""
+        montant_total: "",
+        montant_anticipe: "",
+        montant_anticipe_type_paiement: "",
     }
 })

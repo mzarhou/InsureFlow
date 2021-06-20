@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Client;
 use App\Models\Contrat;
+use App\Models\Credit;
+use App\Models\PaiementCredit;
 use App\Models\User;
 use App\Models\Vehicule;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -78,6 +80,45 @@ class GestionClientTest extends TestCase
 
         $contrat = Contrat::where(["du_date" => "2021-06-16 19:40:44", "au_date" => "2022-06-16 19:40:44"])->first();
         $this->assertNotNull($contrat);
+
+        $response->assertRedirect(route("gestion-clients.index"));
+    }
+
+    /** @test */
+    public function add_client_with_credit()
+    {
+        $response = $this->post(route("gestion-clients.store"), array_merge($this->data, [
+            "contrat" => [
+                "du_date" => "2021-06-16 19:40:44",
+                "au_date" => "2022-06-16 19:40:44",
+                "montant_total" => "250000",
+                // must be Credit
+                "type_paiement" => "Credit",
+                // added
+                "montant_anticipe" => 999,
+                "montant_anticipe_type_paiement" => "Virement"
+            ]
+        ]));
+
+        $response->assertStatus(302);
+
+        $client = Client::where(["nom" => "Jamal", "tele" => "072346234", "addresse" => "example addresse"])->first();
+        $this->assertNotNull($client);
+
+        $vehicule = Vehicule::where(["puissance_energie" => "Gaz", "numero_immatriculation" => "34135324134"])->first();
+        $this->assertNotNull($vehicule);
+
+        $contrat = Contrat::where(["du_date" => "2021-06-16 19:40:44", "au_date" => "2022-06-16 19:40:44"])->first();
+        $this->assertNotNull($contrat);
+
+        $credit = Credit::where("contrat_id", $contrat->id)->first();
+        $paiement = PaiementCredit::where("credit_id", $credit->id)->first();
+
+        $this->assertNotNull($credit);
+        $this->assertNotNull($paiement);
+        $this->assertEquals($credit->montant_total, 250000);
+        $this->assertEquals($paiement->montant, 999);
+        $this->assertEquals($paiement->type_paiement, "Virement");
 
         $response->assertRedirect(route("gestion-clients.index"));
     }
