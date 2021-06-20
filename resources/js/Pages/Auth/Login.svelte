@@ -8,7 +8,9 @@ import { Inertia } from "@inertiajs/inertia";
     function handleSubmit (e) {
         e.preventDefault();
 
-        Inertia.post("/login", { email, password })
+        Inertia.post("/login", { email, password }, {
+            replace: true,
+        })
     }
 
 </script>
