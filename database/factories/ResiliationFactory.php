@@ -21,8 +21,10 @@ class ResiliationFactory extends Factory
      */
     public function definition()
     {
+        $montant_total = $this->faker->numberBetween(500, 1000);
         return [
-            "montant" => $this->faker->numberBetween(500, 1000),
+            "montant" => $montant_total,
+            "montant_total" => $montant_total,
         ];
     }
 }

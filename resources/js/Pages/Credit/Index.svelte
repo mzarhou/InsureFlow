@@ -20,7 +20,7 @@
 
     function handleSearch () {
         Inertia.get(
-            route('credit.index') + '?search=' + searchValue + showCompleted || ''
+            route('credit.index') + '?search=' + searchValue + (showCompleted ? '&completed' : '')
         );
     }
 

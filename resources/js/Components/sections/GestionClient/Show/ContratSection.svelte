@@ -4,7 +4,7 @@
 
     export let contrats = [];
 
-    const isActive = (contrat) => dayjs(contrat.du_date).isBefore(dayjs(contrat.au_date));
+    const isActive = (contrat) => contrat.is_active && dayjs().isBefore(dayjs(contrat.au_date));
 </script>
 
 <div class="mt-10 overflow-hidden bg-white shadow sm:rounded-lg">

@@ -19,6 +19,9 @@ class CreditController extends Controller
     {
         return Inertia::render("Credit/Index", [
             "credits" => fn () => Credit::with(["contrat.vehicule.client", "paiements"])
+                ->whereHas("contrat", function (Builder $query) {
+                    return $query->where("is_active", true);
+                })
                 ->when(request()->search, function (Builder $query, $search) {
                     return $query->whereHas("contrat.vehicule.client", function (Builder $query) use ($search) {
                         $query->where("nom", "like", '%' . $search . '%')

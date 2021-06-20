@@ -9,6 +9,8 @@ class Resiliation extends Model
 {
     use HasFactory;
 
+    protected $guarded = ["id"];
+
     public function contrat()
     {
         return $this->belongsTo(Contrat::class);

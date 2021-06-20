@@ -19,6 +19,7 @@ class CreateContratsTable extends Migration
 
             $table->string('type_paiement');
             $table->unsignedInteger('montant_total');
+            $table->boolean("is_active")->default(true);
             $table->timestamp('du_date');
             $table->timestamp('au_date');
             $table->timestamps();

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Contrat;
 use App\Models\Resiliation;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class ResiliationController extends Controller
@@ -46,7 +48,33 @@ class ResiliationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'montant' => ["required", "numeric"],
+            'montant_total' => ["sometimes", "required", "numeric"],
+            'contrat_id' => ["required", "numeric", "exists:contrats,id"]
+        ]);
+
+        $contrat = Contrat::query()->findOrFail($request->contrat_id);
+
+        DB::transaction(function () use ($request, $contrat) {
+            $contrat->update([
+                "is_active" => false,
+            ]);
+
+            if ($request->has("montant_total")) {
+                Resiliation::create(
+                    $request->only('montant','montant_total','contrat_id')
+                );
+            } else {
+                Resiliation::create([
+                    "montant" => $request->montant,
+                    "montant_total" => $request->montant,
+                    "contrat_id" => $request->contrat_id,
+                ]);
+            }
+        });
+
+        return redirect()->route("gestion-clients.show", $contrat->client);
     }
 
     /**

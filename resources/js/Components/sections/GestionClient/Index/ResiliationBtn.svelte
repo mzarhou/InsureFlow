@@ -13,7 +13,7 @@
     })
 
     function resilier() {
-        $form.post(route("reliation.store"));
+        $form.post(route("resiliation.store"));
     }
 
     $: montant_restant = contrat.montant_total - contrat.credit?.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)

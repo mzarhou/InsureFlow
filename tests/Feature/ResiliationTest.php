@@ -21,6 +21,21 @@ class ResiliationTest extends TestCase
         $contrat = Contrat::all()->random();
         $response = $this->post(route("resiliation.store"), [
             "montant" => 2343,
+            "contrat_id" => $contrat->id
+        ]);
+
+        $response->assertRedirect(
+            route("gestion-clients.show", $contrat->client->id)
+        );
+        $response->assertStatus(302);
+    }
+
+    public function test_ajouter_resiliation_with_credit()
+    {
+        $this->actingAs(User::factory()->create());
+        $contrat = Contrat::all()->random();
+        $response = $this->post(route("resiliation.store"), [
+            "montant" => 100,
             "montant_total" => 2343,
             "contrat_id" => $contrat->id
         ]);
@@ -29,5 +44,6 @@ class ResiliationTest extends TestCase
             route("gestion-clients.show", $contrat->client->id)
         );
         $response->assertStatus(302);
+        $this->assertFalse($contrat->is_active)
     }
 }
