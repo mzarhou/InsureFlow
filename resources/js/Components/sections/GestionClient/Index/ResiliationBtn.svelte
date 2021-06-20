@@ -1,6 +1,7 @@
 <script>
     import Modal from "@/Components/app/Modal.svelte";
     import { useForm } from "@inertiajs/inertia-svelte";
+    import { Inertia } from "@inertiajs/inertia";
 
     export let contrat;
 
@@ -12,13 +13,25 @@
         contrat_id: contrat.id,
     })
 
-    function resilier() {
-        $form.post(route("resiliation.store"));
-    }
-
+    $: hasCredit = (contrat.credit != null) && (contrat.credit.completed == null)
     $: montant_restant = contrat.montant_total - contrat.credit?.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)
 
-    $: hasCredit = (contrat.credit != null) && (contrat.credit.completed == null)
+    $: {
+        if (hasCredit && $form.montant_total) {
+            $form.montant = $form.montant_total - montant_restant;
+        }
+    }
+
+    function resilier() {
+        if (hasCredit) {
+            $form.post(route("resiliation.store"));
+        } else {
+            Inertia.post(route("resiliation.store"), {
+                montant: $form.montant,
+                contrat_id: $form.contrat_id,
+            })
+        }
+    }
 </script>
 
 <Modal bind:show={showModal}>

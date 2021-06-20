@@ -61,6 +61,10 @@ class ResiliationController extends Controller
                 "is_active" => false,
             ]);
 
+            $contrat->credit->update([
+                "completed" => now()
+            ]);
+
             if ($request->has("montant_total")) {
                 Resiliation::create(
                     $request->only('montant','montant_total','contrat_id')
