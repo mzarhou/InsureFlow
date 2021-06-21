@@ -5,8 +5,15 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ResiliationController;
+use App\Models\Charge;
+use App\Models\Contrat;
+use App\Models\PaiementCredit;
+use App\Models\Resiliation;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,7 +27,14 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render("index");
+    $date = Carbon::now()->subDay()->startOfDay();
+
+    return Inertia::render("index", [
+        'contrats' => Contrat::where("type_paiement", "!=", "Credit")->where("created_at", ">=", $date)->get(),
+        'charges' => Charge::where("created_at", ">=", $date)->get(),
+        'resiliations' => Resiliation::where("created_at", ">=", $date)->get(),
+        'paiements' => PaiementCredit::where("created_at", ">=", $date)->get()
+    ]);
 })->middleware("auth")->name("index");
 
 Route::get("/login", function () {

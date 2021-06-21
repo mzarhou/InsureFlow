@@ -35,7 +35,7 @@ class ChargeController extends Controller
 
         Charge::create($request->only("montant", "description"));
 
-        return redirect()->route("gestion-charges.index");
+        return redirect()->back()->with("message", "crée avec succès");
     }
 
     /**
@@ -54,7 +54,7 @@ class ChargeController extends Controller
 
         $charge->update($request->all());
 
-        return redirect()->route("gestion-charges.index");
+        return redirect()->back()->with("message", "modifie avec succès");
     }
 
     /**
@@ -66,6 +66,6 @@ class ChargeController extends Controller
     public function destroy(Charge $charge)
     {
         $charge->delete();
-        return redirect()->route("gestion-charges.index");
+        return redirect()->back()->with("message", "supprime avec succès");
     }
 }

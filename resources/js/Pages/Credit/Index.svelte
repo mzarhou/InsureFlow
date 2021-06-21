@@ -80,7 +80,7 @@
                         {#each Credits as credit, key}
                         <tr key={key} transition:fade={{ delay: 15 * key, duration: 200 }}>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <a href={route("gestion-clients.show", credit.client?.id)} use:inertia class="text-gray-900 whitespace-no-wrap">
+                                <a href={route("gestion-clients.show", credit.client?.id)} use:inertia class="font-semibold text-gray-700 whitespace-no-wrap">
                                     {credit.client?.nom}
                                 </a>
                             </td>

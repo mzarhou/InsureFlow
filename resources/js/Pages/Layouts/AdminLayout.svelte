@@ -3,6 +3,8 @@
     import { gsap } from 'gsap'
     import { onMount } from 'svelte';
     import { inertia } from "@inertiajs/inertia-svelte"
+    import Notification from '@/Components/app/Notification.svelte';
+    import { page } from '@inertiajs/inertia-svelte'
     let route = window?.route;
 
     let show = true;
@@ -29,6 +31,9 @@
     }
 </script>
 
+<!-- {#if $page.props.flash.message && showNotification} -->
+<Notification />
+<!-- {/if} -->
 
 {#if !show}
     <button on:click={openSidebar} class="absolute left-0 text-gray-600 open-btn">
@@ -109,8 +114,10 @@
         </div>
     </div>
 
-    <div class="flex-grow h-screen pt-10 overflow-y-auto">
-        <slot />
+    <div class="flex-grow h-screen overflow-y-auto">
+        <div class="pt-10">
+            <slot />
+        </div>
     </div>
 </div>
 
