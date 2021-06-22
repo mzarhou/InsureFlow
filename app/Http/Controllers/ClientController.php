@@ -55,7 +55,8 @@ class ClientController extends Controller
 
         });
 
-        return redirect()->route("gestion-clients.index");
+        return redirect()->route("gestion-clients.index")
+            ->with("message", "succès");
     }
 
     private function ajouter_client($clientData): Client

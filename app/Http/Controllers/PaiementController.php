@@ -43,7 +43,8 @@ class PaiementController extends Controller
         ]);
 
         PaiementCredit::create($request->only("montant", "credit_id", "type_paiement"));
-        return redirect()->route("credit.show", $request->credit_id);
+        return redirect()->route("credit.show", $request->credit_id)
+            ->with("message", "succès");
     }
 
     /**

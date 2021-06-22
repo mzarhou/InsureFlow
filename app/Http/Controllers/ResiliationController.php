@@ -78,7 +78,8 @@ class ResiliationController extends Controller
             }
         });
 
-        return redirect()->route("gestion-clients.show", $contrat->client);
+        return redirect()->route("gestion-clients.show", $contrat->client)
+            ->with("message", "succès");
     }
 
     /**

@@ -85,8 +85,8 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <p class="whitespace-no-wrap {resiliation?.montant * -1 >= 0 ? 'text-green-500' : 'text-red-500'}">
-                                    {resiliation?.montant * -1} DH
+                                <p class="whitespace-no-wrap {resiliation?.montant <= 0 ? 'text-green-500' : 'text-red-500'}">
+                                    {resiliation?.montant} DH
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
