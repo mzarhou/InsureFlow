@@ -61,7 +61,7 @@ class ResiliationController extends Controller
                 "is_active" => false,
             ]);
 
-            $contrat->credit->update([
+            $contrat->credit?->update([
                 "completed" => now()
             ]);
 
