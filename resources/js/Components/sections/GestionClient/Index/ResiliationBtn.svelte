@@ -55,12 +55,12 @@
                 <button type="submit" class="w-full px-4 py-2 mt-4 text-white bg-green-500 rounded-lg">Resilier</button>
             </div>
         </form>
-        {#if hasCredit}
+        <!-- {#if hasCredit}
         <div class="px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10">
             <p class="text-xs leading-5 text-gray-500">
                 Montant: negative le
             </p>
         </div>
-        {/if}
+        {/if} -->
     </div>
 </Modal>

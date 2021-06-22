@@ -108,7 +108,8 @@ class CreditController extends Controller
             "completed" => Carbon::now()
         ]);
 
-        return redirect()->route("credit.show", $credit->id);
+        return redirect()->route("credit.show", $credit->id)
+            ->with("message", "succès");
     }
 
     /**

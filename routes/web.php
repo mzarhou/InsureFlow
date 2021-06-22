@@ -27,7 +27,7 @@ use PhpParser\Node\Expr\AssignOp\Concat;
 */
 
 Route::get('/', function () {
-    $date = Carbon::now()->subDay()->startOfDay();
+    $date = Carbon::now()->startOfDay();
 
     return Inertia::render("index", [
         'contrats' => Contrat::where("type_paiement", "!=", "Credit")->where("created_at", ">=", $date)->get(),
