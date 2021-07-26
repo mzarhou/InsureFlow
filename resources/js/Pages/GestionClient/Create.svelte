@@ -1,17 +1,16 @@
 <script>
-import Steps from "@/Components/app/Steps";
+import Steps from "@/Components/sections/GestionClient/Create/Steps";
 import Etap1 from "@/Components/sections/GestionClient/Create/Etap1.svelte";
 import Etap2 from "@/Components/sections/GestionClient/Create/Etap2.svelte";
 import Etap3 from "@/Components/sections/GestionClient/Create/Etap3.svelte";
-import EtapDone from "@/Components/sections/GestionClient/Create/EtapDone.svelte";
 import Layout from "@/Pages/Layouts/AdminLayout.svelte"
 import SaveBtn from "@/Components/sections/GestionClient/Create/SaveBtn.svelte";
 
-const components = [Etap1, Etap2, Etap3, EtapDone]
+const components = [Etap1, Etap2, Etap3]
 let step = 0;
 
 function next() {
-    if (step < (components.length - 1)) {
+    if (step < components.length) {
         step = step + 1;
     }
 }
@@ -42,14 +41,14 @@ function previous() {
                         Precedant
                     </button>
                 {/if}
-                {#if step < (components.length - 2)}
+                {#if step < (components.length - 1)}
                     <button on:click={next} class="justify-self-end flex px-4 py-2 text-white bg-green-400 rounded-md">
                         Suivant
                         <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 {/if}
-                {#if step >= (components.length - 2)}
-                    <SaveBtn on:trigger={next} />
+                {#if step >= (components.length - 1)}
+                    <SaveBtn on:open={next} on:close={previous} />
                 {/if}
             </div>
         </div>

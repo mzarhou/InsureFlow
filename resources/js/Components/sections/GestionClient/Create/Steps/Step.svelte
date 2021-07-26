@@ -6,7 +6,7 @@
     export let step;
     export let nbSteps;
 
-    const duration = 350;
+    const duration = 300;
     const width = tweened(0, {
         duration,
     });

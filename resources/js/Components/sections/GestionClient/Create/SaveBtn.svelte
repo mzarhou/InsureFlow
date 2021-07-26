@@ -5,14 +5,12 @@
 
     let route = window.route;
 
-    let showConfirmModal = false;
-
     function handleSubmit () {
         Inertia.post(route("gestion-clients.store"), $clientInfo);
     }
 </script>
 
-<Modal on:trigger bind:show={showConfirmModal}>
+<Modal on:open on:close let:close>
     <button slot="trigger" class="justify-self-end flex px-4 py-2 text-white bg-green-400 rounded-md">
         Enregistrer
         <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -32,7 +30,7 @@
                     <button on:click={handleSubmit} type="button" class="hover:bg-green-700 focus:ring-green-400 focus:ring-offset-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 w-full px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-green-500 rounded-lg shadow-md">
                         Enregistrer
                     </button>
-                    <button on:click={() => showConfirmModal = false} type="button" class="hover:bg-gray-100 focus:ring-green-400 focus:ring-offset-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 w-full px-4 py-2 text-base font-semibold text-center text-green-400 transition duration-200 ease-in bg-white rounded-lg shadow-md">
+                    <button on:click={close} type="button" class="hover:bg-gray-100 focus:ring-green-400 focus:ring-offset-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 w-full px-4 py-2 text-base font-semibold text-center text-green-400 transition duration-200 ease-in bg-white rounded-lg shadow-md">
                         Annuler
                     </button>
                 </div>
