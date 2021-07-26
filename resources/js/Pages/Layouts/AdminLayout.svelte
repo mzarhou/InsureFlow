@@ -33,6 +33,20 @@
     function logout () {
         Inertia.post(route("logout"));
     }
+
+    // handle lef margin for containers
+    $: {
+        if (document) {
+            let elements = document.querySelectorAll("body .mrg-left");
+            elements.forEach(el => {
+                if (show) {
+                    el.classList.remove("ml-10")
+                } else {
+                    el.classList.add("ml-10")
+                }
+            })
+        }
+    }
 </script>
 
 {#if !show}
@@ -44,18 +58,12 @@
 <Notification />
 
 <div class="md:flex h-screen">
-    <div class="md:relative dark:bg-gray-800 sidebar absolute inset-y-0 z-50 bg-red-500">
+    <div style="z-index: 110" class="md:relative dark:bg-gray-800 sidebar absolute inset-y-0 z-50 bg-red-500">
         <div class="sm:flex-row sm:justify-around flex flex-col bg-white">
             <button class="close-btn absolute right-0 text-gray-600" on:click={closeSidebar}>
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             <div class="w-72 h-screen">
-                <!-- <div class="flex items-center justify-start mx-6 mt-10">
-                    <img class="h-10" src="/icons/rocket.svg"/>
-                    <span class="dark:text-gray-300 ml-4 text-2xl font-bold text-gray-600">
-                        Tail-Kit
-                    </span>
-                </div> -->
                 <nav class=" px-6 mt-10">
                     <a href={route("index")} use:inertia class="{route().current('index') ? 'bg-gray-100 text-gray-800' : 'text-gray-600'} flex items-center p-2 my-5 transition-colors duration-200 rounded-lg hover:text-gray-800 hover:bg-gray-100">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
@@ -115,15 +123,13 @@
     </div>
 
     <div class="flex-grow h-screen overflow-y-auto">
-        <div class="pt-10">
-            <slot />
-        </div>
+        <slot />
     </div>
 </div>
 
 <style>
 .close-btn {
-    margin-right: 40px;
+    margin-right: 10px;
     margin-top: 10px;
 }
 

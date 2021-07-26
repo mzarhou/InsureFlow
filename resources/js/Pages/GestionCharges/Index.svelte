@@ -11,7 +11,7 @@ export let charges = [];
 </script>
 
 <Layout>
-    <main class="p-4">
+    <main class="mrg-left p-4">
         <div class="flex flex-wrap-reverse justify-between -mt-4">
             <!-- ajouter -->
             <AddForm />
@@ -19,16 +19,16 @@ export let charges = [];
         <table class="table w-full p-4 mt-4 bg-white rounded-lg shadow">
             <thead>
                 <tr>
-                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                    <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
                         Date
                     </th>
-                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                    <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
                         Montant (DH)
                     </th>
-                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                    <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
                         Description
                     </th>
-                    <th class="p-4 font-normal text-gray-900 border dark:border-dark-5 whitespace-nowrap">
+                    <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
                         Actions
                     </th>
                 </tr>
@@ -36,10 +36,10 @@ export let charges = [];
             <tbody>
                 {#each charges as charge, key}
                 <tr key={key} class="text-gray-700" transition:fade={{ delay: 20 * key, duration: 300 }}>
-                    <td class="p-4 border dark:border-dark-5">{dayjs(charge.created_at).format("DD-MM-YYYY HH:mm")}</td>
-                    <td class="p-4 border dark:border-dark-5">{charge.montant}</td>
-                    <td class="p-4 border dark:border-dark-5">{charge.description}</td>
-                    <td class="p-4 text-center border dark:border-dark-5">
+                    <td class="dark:border-dark-5 p-4 border">{dayjs(charge.created_at).format("DD-MM-YYYY HH:mm")}</td>
+                    <td class="dark:border-dark-5 p-4 border">{charge.montant}</td>
+                    <td class="dark:border-dark-5 p-4 border">{charge.description}</td>
+                    <td class="dark:border-dark-5 p-4 text-center border">
                         <!-- Modifier -->
                         <EditForm charge={charge} />
                         <DeleteForm charge={charge} />

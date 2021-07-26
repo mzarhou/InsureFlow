@@ -1,4 +1,6 @@
 <script>
+import Step from "./Step.svelte";
+
     export let step = 2;
 
     let steps = [
@@ -19,40 +21,13 @@
             icon: `<svg class="w-full fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path class="heroicon-ui" d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-2.3-8.7l1.3 1.29 3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-2-2a1 1 0 0 1 1.4-1.42z"/></svg>`
         }
     ]
-
-    const getWidth = (index, step) => {
-        if (index <= (step - 1))
-            return 100;
-        else if (index === step)
-            return 30;
-        else
-            return 0;
-    }
 </script>
 
 <div class="w-full max-w-5xl py-6 mx-auto">
     <div class="flex">
 
         {#each steps as st, i}
-            <div style="width: {100 / steps?.length}%;">
-                <div class="relative mb-2">
-                    {#if i !== 0}
-                    <div class="absolute flex items-center content-center align-middle align-center" style="width: calc(100% - 2.5rem - 1rem); top: 50%; transform: translate(-50%, -50%)">
-                        <div class="items-center flex-1 w-full align-middle bg-gray-200 rounded align-center">
-                            <div class="w-0 py-1 bg-green-300 rounded" style="width: {getWidth(i, step)}%;"></div>
-                        </div>
-                    </div>
-                    {/if}
-
-                    <div class="{i < step ? 'bg-green-500' : 'bg-gray-300'} flex items-center w-10 h-10 mx-auto text-lg text-white rounded-full">
-                        <span class="w-full p-1 text-center text-white">
-                            {@html st?.icon}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="text-xs text-center md:text-base">{st?.title}</div>
-            </div>
+            <Step index={i} step={st} currentStep={step} nbSteps={steps?.length}  />
         {/each}
     </div>
 </div>

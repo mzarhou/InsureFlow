@@ -7,8 +7,6 @@
         return Object.keys(errors).map((key) => errors[key]);
     })();
 
-    $: console.log(displayErrors);
-
     let email = "";
     let password = "";
 

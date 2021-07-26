@@ -1,8 +1,6 @@
 <script>
-import SalesCard from "@/Components/app/SalesCard.svelte";
-
+    import SalesCard from "@/Components/app/SalesCard.svelte";
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
-    let name = "Index Page";
 
     export let contrats = [];
     export let charges = [];
@@ -18,18 +16,10 @@ import SalesCard from "@/Components/app/SalesCard.svelte";
 </script>
 
 <Layout>
-    <!-- <div>{name}</div>
-    <div>paiementsTotal: {paiementsTotal} DH</div>
-    <div>resiliationsTotal: {resiliationsTotal} DH</div>
-    <div>chargesTotal: {chargesTotal} DH</div>
-    <div>contratsTotal: {contratsTotal} DH</div> -->
-
-
-
-    <div class="p-4">
+    <div class="mrg-left px-4 py-8">
         <div class="text-2xl text-gray-700">Les statistiques du mois</div>
-        <hr class="mt-1" />
-        <div class="grid gap-4 mt-4 lg:grid-cols-2 xl:grid-cols-3">
+        <hr class="mt-2" />
+        <div class="lg:grid-cols-2 xl:grid-cols-3 grid gap-4 mt-6">
             <SalesCard label="Paiements" price={paiementsTotal} />
             <SalesCard label="Resiliations" price={resiliationsTotal} />
             <SalesCard label="Charges" price={chargesTotal} />

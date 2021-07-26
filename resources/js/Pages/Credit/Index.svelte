@@ -30,25 +30,25 @@
 </script>
 
 <Layout>
-<div class="container max-w-4xl px-4 mx-auto sm:px-8">
+<div class="mrg-left sm:px-8 container max-w-4xl px-4 mx-auto">
     <div class="py-8">
-        <div class="flex flex-row items-center justify-between w-full mb-1 sm:mb-0">
+        <div class="sm:mb-0 flex flex-row items-center justify-between w-full mb-1">
             <h2 class="text-2xl leading-tight">Credit</h2>
             <div class="text-end">
                 <form on:submit|preventDefault={handleSearch} class="flex items-center w-full max-w-sm space-x-3">
                     <div class="">
                         <CheckBox bind:checked={showCompleted} label="complet" />
                     </div>
-                    <div class="relative ">
-                        <input bind:value={searchValue} type="text" class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="rechercher (nom, cin)"/>
+                    <div class=" relative">
+                        <input bind:value={searchValue} type="text" class="focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none" placeholder="rechercher (nom, cin)"/>
                     </div>
-                    <button type="submit" class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200">
+                    <button type="submit" class="hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md">
                         Filtrer
                     </button>
                 </form>
             </div>
         </div>
-        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:px-8">
+        <div class="sm:px-8 px-4 py-4 -mx-4 overflow-x-auto">
             <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
                 <table class="min-w-full leading-normal">
                     <thead>
@@ -112,10 +112,10 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <a use:inertia href={route("credit.show", credit.id)} class="relative text-indigo-600 hover:text-indigo-900">
+                                <a use:inertia href={route("credit.show", credit.id)} class="hover:text-indigo-900 relative text-indigo-600">
                                     Details
                                     {#if credit.paiements?.length > 0}
-                                    <span class="absolute top-0 right-0 block w-4 h-4 -mt-2 -mr-2 text-xs font-semibold text-center text-white rounded-full bg-c-2">
+                                    <span class="bg-c-2 absolute top-0 right-0 block w-4 h-4 -mt-2 -mr-2 text-xs font-semibold text-center text-white rounded-full">
                                         {credit.paiements?.length < 100 ? credit.paiements?.length : '...'}
                                     </span>
                                     {/if}
