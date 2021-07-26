@@ -23,8 +23,6 @@
             hideAfter();
         }
     }
-
-    $: console.log("show: " + show);
 </script>
 
 {#if $page.props.flash.message && show}
