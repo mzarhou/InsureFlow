@@ -24,8 +24,12 @@ import SalesCard from "@/Components/app/SalesCard.svelte";
     <div>chargesTotal: {chargesTotal} DH</div>
     <div>contratsTotal: {contratsTotal} DH</div> -->
 
+
+
     <div class="p-4">
-        <div class="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
+        <div class="text-2xl text-gray-700">Les statistiques du mois</div>
+        <hr class="mt-1" />
+        <div class="grid gap-4 mt-4 lg:grid-cols-2 xl:grid-cols-3">
             <SalesCard label="Paiements" price={paiementsTotal} />
             <SalesCard label="Resiliations" price={resiliationsTotal} />
             <SalesCard label="Charges" price={chargesTotal} />
