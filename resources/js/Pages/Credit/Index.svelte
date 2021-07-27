@@ -1,5 +1,9 @@
-<script>
+<script context="module">
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
+    export const layout = Layout
+</script>
+
+<script>
     import { inertia } from "@inertiajs/inertia-svelte"
     import { Inertia } from "@inertiajs/inertia"
     import CheckBox from "@/Components/ui/CheckBox.svelte";
@@ -29,7 +33,6 @@
         );
 </script>
 
-<Layout>
 <div class="mrg-left sm:px-8 container max-w-4xl px-4 mx-auto">
     <div class="py-8">
         <div class="sm:mb-0 flex flex-row items-center justify-between w-full mb-1">
@@ -129,4 +132,3 @@
         </div>
     </div>
 </div>
-</Layout>
