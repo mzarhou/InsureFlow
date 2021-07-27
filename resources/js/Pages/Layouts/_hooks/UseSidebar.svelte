@@ -26,6 +26,20 @@
         show = true;
         gsap.to(".sidebar", { x: 0, width: sidebarWidth, duration: 0.3 });
     }
+
+    // handle lef margin for containers
+    $: {
+        if (document) {
+            let elements = document.querySelectorAll("body .mrg-left");
+            elements.forEach((el) => {
+                if (show) {
+                    el.classList.remove("ml-10");
+                } else {
+                    el.classList.add("ml-10");
+                }
+            });
+        }
+    }
 </script>
 
 <slot {show} {openSidebar} {closeSidebar} />

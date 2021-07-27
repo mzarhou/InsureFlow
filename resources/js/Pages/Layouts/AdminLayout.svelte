@@ -11,20 +11,6 @@
     function logout() {
         Inertia.post(route("logout"));
     }
-
-    // handle lef margin for containers
-    $: {
-        if (document) {
-            let elements = document.querySelectorAll("body .mrg-left");
-            elements.forEach((el) => {
-                if (show) {
-                    el.classList.remove("ml-10");
-                } else {
-                    el.classList.add("ml-10");
-                }
-            });
-        }
-    }
 </script>
 
 <UseSidebar let:show let:openSidebar let:closeSidebar>
