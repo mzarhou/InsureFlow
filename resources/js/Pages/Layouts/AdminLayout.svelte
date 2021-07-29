@@ -1,5 +1,5 @@
 <script>
-    import { inertia } from "@inertiajs/inertia-svelte";
+    import { inertia, page } from "@inertiajs/inertia-svelte";
     import { Inertia } from "@inertiajs/inertia";
     import Notification from "@/Components/app/Notification.svelte";
     import { useRoutes } from "./_hooks/useRoutes";
@@ -17,7 +17,7 @@
     {#if !show}
         <button
             on:click={openSidebar}
-            class="open-btn absolute left-0 text-gray-600"
+            class="absolute left-0 text-gray-600 open-btn"
         >
             <svg
                 class="w-6 h-6"
@@ -37,14 +37,14 @@
 
     <Notification />
 
-    <div class="md:flex h-screen">
+    <div class="h-screen md:flex">
         <div
             style="z-index: 110"
-            class="md:relative dark:bg-gray-800 sidebar absolute inset-y-0 z-50 bg-red-500"
+            class="absolute inset-y-0 z-50 bg-red-500 md:relative dark:bg-gray-800 sidebar"
         >
-            <div class="sm:flex-row sm:justify-around flex flex-col bg-white">
+            <div class="flex flex-col bg-white sm:flex-row sm:justify-around">
                 <button
-                    class="close-btn absolute right-0 text-gray-600"
+                    class="absolute right-0 text-gray-600 close-btn"
                     on:click={closeSidebar}
                 >
                     <svg
@@ -61,15 +61,15 @@
                         /></svg
                     >
                 </button>
-                <div class="w-72 h-screen">
-                    <nav class=" px-6 mt-10">
+                <div class="h-screen w-72">
+                    <nav class="px-6 mt-10 ">
                         {#each $routes as rt}
                             <a
-                                href={route(rt.url)}
+                                href={route(rt.name)}
                                 use:inertia
                                 class="{rt.selected
                                     ? 'bg-gray-100 text-gray-800'
-                                    : 'text-gray-600'} flex items-center p-2 my-5 transition-colors duration-200 rounded-lg hover:text-gray-800 hover:bg-gray-100"
+                                    : 'text-gray-600'} flex items-center p-2 my-3 transition-colors duration-200 rounded-lg hover:text-gray-800 hover:bg-gray-100"
                             >
                                 {@html rt.icon}
                                 <span class="mx-4 text-lg font-normal"
@@ -82,7 +82,7 @@
                     <div class="absolute bottom-0 my-10">
                         <form
                             on:submit|preventDefault={logout}
-                            class="hover:text-gray-800 flex items-center px-8 py-2 text-gray-600 transition-colors duration-200"
+                            class="flex items-center px-8 py-2 text-gray-600 transition-colors duration-200 hover:text-gray-800"
                         >
                             <svg
                                 class="w-6 h-6"
