@@ -1,25 +1,23 @@
 <script>
     import { tweened } from "svelte/motion";
+    import StepIcon from "./StepIcon.svelte"
+    import { getContext } from "svelte"
+    import { stepKey } from "@/Pages/GestionClient/Create.svelte"
 
-    export let index;
-    export let currentStep;
-    export let step;
+    export let index; // index of this step (fixed) (0, 1, 2, ....)
+    export let step; // object: step info (title icon ....)
     export let nbSteps;
+    const { step: stepStore } = getContext(stepKey)
+    export let width; // store
 
-    const duration = 300;
-    const width = tweened(0, {
-        duration,
-    });
-
+    let wdt;
     $: {
-        setTimeout(
-            () => {
-                if (index <= currentStep - 1) width.set(100);
-                else if (index === currentStep) width.set(30);
-                else width.set(0);
-            },
-            index === currentStep ? duration : 0
-        );
+        let wt = $width - ((index + 1) * 100)
+        if (wt > 100)
+            wt = 100
+        if (wt < 0)
+            wt = 0;
+        wdt = wt;
     }
 </script>
 
@@ -27,30 +25,22 @@
     <div class="relative mb-2">
         {#if index !== 0}
             <div
-                class="align-center absolute flex items-center content-center align-middle"
-                style="width: calc(100% - 2.5rem - 1rem); top: 50%; transform: translate(-50%, -50%)"
+                class="absolute flex items-center content-center align-middle align-center"
+                style="width: calc(100% - 3.5rem); top: 50%; transform: translate(-50%, -50%)"
             >
                 <div
-                    class="align-center items-center flex-1 w-full align-middle bg-gray-200 rounded"
+                    class="items-center flex-1 w-full align-middle bg-gray-200 rounded align-center"
                 >
                     <div
                         class="w-0 py-1 bg-green-400 rounded"
-                        style={`width: ${$width}%;`}
+                        style={`width: ${wdt}%;`}
                     />
                 </div>
             </div>
         {/if}
 
-        <div
-            class={`${ $width === 100
-                ? 'bg-green-400'
-                : 'bg-gray-300'} flex items-center w-10 h-10 mx-auto text-lg text-white rounded-full`}
-        >
-            <span class="w-full p-1 text-center text-white">
-                {@html step?.icon}
-            </span>
-        </div>
+        <StepIcon on:click={() => $stepStore = index} errorKey={step?.key} full={wdt === 100} icon={step?.icon} />
     </div>
 
-    <div class="md:text-base text-xs text-center">{step?.title}</div>
+    <div class="text-xs text-center md:text-base">{step?.title}</div>
 </div>
