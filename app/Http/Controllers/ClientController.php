@@ -47,9 +47,9 @@ class ClientController extends Controller
         DB::transaction(function () use ($request) {
             $client = $this->ajouter_client($request->input("personnelles"));
             $vehicule = $this->ajouter_vehicule($request->input("vehicule"), $client->id);
-            $this->ajouter_contrat($request->input("contrat"), $vehicule->id);
+            $contrat = $this->ajouter_contrat($request->input("contrat"), $vehicule->id);
             if ($request->contrat["type_paiement"] === "Credit")
-                $this->ajouter_credit_paiement($request->input("contrat"), $vehicule->id);
+                $this->ajouter_credit_paiement($request->input("contrat"), $contrat->id);
 
         });
 
@@ -76,14 +76,10 @@ class ClientController extends Controller
         ]));
     }
 
-    private function ajouter_credit_paiement($contratData, $vehicule_id): PaiementCredit
+    private function ajouter_credit_paiement($contratData, $contrat_id): PaiementCredit
     {
-        $contrat = Contrat::create(array_merge($contratData, [
-            "vehicule_id" => $vehicule_id
-        ]));
-
         $credit = Credit::create([
-            'contrat_id' => $contrat->id,
+            'contrat_id' => $contrat_id,
             'montant_total' => $contratData["montant_total"],
             'du' => Carbon::now(),
         ]);

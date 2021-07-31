@@ -4,12 +4,22 @@ namespace Tests\Feature;
 
 use App\Models\Contrat;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ResiliationTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->actingAs(User::factory()->create());
+        (new DatabaseSeeder)->run();
+    }
+
     /**
      * A basic feature test example.
      *
@@ -17,7 +27,6 @@ class ResiliationTest extends TestCase
      */
     public function test_ajouter_resiliation()
     {
-        $this->actingAs(User::factory()->create());
         $contrat = Contrat::all()->random();
         $response = $this->post(route("resiliation.store"), [
             "montant" => 2343,
@@ -32,7 +41,6 @@ class ResiliationTest extends TestCase
 
     public function test_ajouter_resiliation_with_credit()
     {
-        $this->actingAs(User::factory()->create());
         $contrat = Contrat::all()->random();
         $response = $this->post(route("resiliation.store"), [
             "montant" => 100,
@@ -43,7 +51,8 @@ class ResiliationTest extends TestCase
         $response->assertRedirect(
             route("gestion-clients.show", $contrat->client->id)
         );
+        $contrat = Contrat::find($contrat->id);
         $response->assertStatus(302);
-        $this->assertFalse($contrat->is_active)
+        $this->assertFalse(!!$contrat->is_active);
     }
 }

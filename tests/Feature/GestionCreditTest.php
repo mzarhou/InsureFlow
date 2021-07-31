@@ -7,18 +7,20 @@ use App\Models\Contrat;
 use App\Models\Credit;
 use App\Models\User;
 use App\Models\Vehicule;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class GestionCreditTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->actingAs(User::factory()->create());
+        (new DatabaseSeeder())->run();
     }
 
     /** @test */
