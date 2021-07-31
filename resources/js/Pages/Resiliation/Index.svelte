@@ -5,6 +5,7 @@
 
 <script>
     import { Inertia } from "@inertiajs/inertia"
+    import { inertia } from "@inertiajs/inertia-svelte"
     import { fade } from "svelte/transition";
     import dayjs from "dayjs"
     const route = window.route;
@@ -30,22 +31,22 @@
         );
 </script>
 
-<div class="mrg-left sm:px-8 container max-w-4xl px-4 mx-auto">
+<div class="container max-w-4xl px-4 mx-auto mrg-left sm:px-8">
     <div class="py-8">
-        <div class="sm:mb-0 flex flex-row items-center justify-between w-full mb-1">
+        <div class="flex flex-row items-center justify-between w-full mb-1 sm:mb-0">
             <h2 class="text-2xl leading-tight">Resiliation</h2>
             <div class="text-end">
                 <form on:submit|preventDefault={handleSearch} class="flex items-center w-full max-w-sm space-x-3">
-                    <div class=" relative">
-                        <input bind:value={searchValue} type="text" class="focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none" placeholder="rechercher (nom, cin)"/>
+                    <div class="relative ">
+                        <input bind:value={searchValue} type="text" class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="rechercher (nom, cin)"/>
                     </div>
-                    <button type="submit" class="hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200 flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md">
+                    <button type="submit" class="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-purple-600 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200">
                         Filtrer
                     </button>
                 </form>
             </div>
         </div>
-        <div class="sm:px-8 px-4 py-4 -mx-4 overflow-x-auto">
+        <div class="px-4 py-4 -mx-4 overflow-x-auto sm:px-8">
             <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
                 <table class="min-w-full leading-normal">
                     <thead>
@@ -77,9 +78,9 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
+                                <a href={route("gestion-clients.show", resiliation.client?.id)} use:inertia class="font-semibold text-gray-900 whitespace-no-wrap">
                                     {resiliation.client?.nom}
-                                </p>
+                                </a>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
