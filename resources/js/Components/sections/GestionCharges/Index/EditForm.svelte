@@ -4,7 +4,7 @@ import { useForm } from "@inertiajs/inertia-svelte"
 
 export let charge;
 
-let form = useForm({
+$: form = useForm({
     montant: charge.montant,
     description: charge.description,
 })
