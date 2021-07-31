@@ -30,17 +30,20 @@
 
     function handleSubmit () {
         if (credit?.id != null) {
-            $form.post(route("paiement.store"));
-            closeModal && closeModal();
+            $form.post(route("paiement.store"), {
+                onSuccess() {
+                    closeModal && closeModal();
+                }
+            });
         }
 
     }
 </script>
 
 <div
-    class="sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden bg-white rounded-lg shadow"
+    class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden"
 >
-    <div class="sm:px-10 px-4 py-8">
+    <div class="px-4 py-8 sm:px-10">
         <div class="relative mt-6">
             <div class="absolute inset-0 flex items-center">
                 <div class="w-full border-t border-gray-300"></div>
@@ -56,6 +59,9 @@
                 <div class="w-full">
                     <div class="relative">
                         <TypePaiement bind:selectedValue={$form.type_paiement} options={options} />
+                        {#if !!$form.errors.type_paiement}
+                            <p class="text-red-500">{$form.errors.type_paiement}</p>
+                        {/if}
                     </div>
                 </div>
                 <div class="w-full">
@@ -63,16 +69,20 @@
                         <input
                             bind:value={$form.montant}
                             type="text"
-                            class="focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none"
+                            class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                            class:border-red-500={!!$form.errors.montant}
                             placeholder="Montant"
                         />
+                        {#if !!$form.errors.montant}
+                            <p class="text-red-500">{$form.errors.montant}</p>
+                        {/if}
                     </div>
                 </div>
                 <div>
                     <span class="block w-full rounded-md shadow-sm">
                         <button
                             type="submit"
-                            class="hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 w-full px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-indigo-600 rounded-lg shadow-md"
+                            class="w-full px-4 py-2 text-base font-semibold text-center text-white transition duration-200 ease-in bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
                         >
                             Ajouter
                         </button>
