@@ -16,7 +16,7 @@
         </p>
     </div>
     <div class="flex flex-col justify-start">
-        <p class="my-4 text-4xl font-bold text-left text-gray-800 dark:text-white">
+        <p class="my-4 text-4xl font-semibold text-left text-gray-800 dark:text-white">
             {price} DH
         </p>
     </div>

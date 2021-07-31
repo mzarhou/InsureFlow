@@ -1,7 +1,6 @@
 <script>
     import Modal from "@/Components/app/Modal.svelte";
     import { useForm } from "@inertiajs/inertia-svelte";
-    import { Inertia } from "@inertiajs/inertia";
 
     export let contrat;
 
@@ -9,7 +8,7 @@
 
     let form = useForm({
         montant: "",
-        montant_total: "",
+        montant_total: undefined,
         contrat_id: contrat.id,
     })
 
@@ -23,14 +22,7 @@
     }
 
     function resilier() {
-        if (hasCredit) {
-            $form.post(route("resiliation.store"));
-        } else {
-            Inertia.post(route("resiliation.store"), {
-                montant: $form.montant,
-                contrat_id: $form.contrat_id,
-            })
-        }
+        $form.post(route("resiliation.store"));
     }
 </script>
 
@@ -48,19 +40,27 @@
                     <span>Montant Restant (credit): {montant_restant} DH</span>
                     <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <input bind:value={$form.montant_total} type="number" placeholder="Montant Total (DH)" class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-md" />
+                <input
+                    bind:value={$form.montant_total} type="text" placeholder="Montant Total (DH)"
+                    class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-md"
+                    class:border-red-500={$form.errors.montant_total}
+                />
+                {#if $form.errors.montant_total}
+                    <p class="ml-1 text-sm text-red-500">{$form.errors.montant}</p>
+                {/if}
             {/if}
-            <input bind:value={$form.montant} type="number" placeholder="Montant (DH)" class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-md" />
+            <input
+                bind:value={$form.montant} type="text" placeholder="Montant (DH)"
+                class="w-full px-4 py-2 mt-4 border border-gray-200 rounded-md"
+                class:border-red-500={$form.errors.montant}
+                disabled={hasCredit}
+            />
+            {#if $form.errors.montant}
+                <p class="ml-1 text-sm text-red-500">{$form.errors.montant}</p>
+            {/if}
             <div class="flex justify-end">
                 <button type="submit" class="w-full px-4 py-2 mt-4 text-white bg-green-500 rounded-lg">Resilier</button>
             </div>
         </form>
-        <!-- {#if hasCredit}
-        <div class="px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10">
-            <p class="text-xs leading-5 text-gray-500">
-                Montant: negative le
-            </p>
-        </div>
-        {/if} -->
     </div>
 </Modal>

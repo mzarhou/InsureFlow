@@ -1,7 +1,11 @@
-<script>
+<script context="module">
     import Layout from "@/Pages/Layouts/AdminLayout.svelte"
-    import { inertia } from "@inertiajs/inertia-svelte"
+    export const layout = Layout
+</script>
+
+<script>
     import { Inertia } from "@inertiajs/inertia"
+    import { inertia } from "@inertiajs/inertia-svelte"
     import { fade } from "svelte/transition";
     import dayjs from "dayjs"
     const route = window.route;
@@ -27,8 +31,7 @@
         );
 </script>
 
-<Layout>
-<div class="container max-w-4xl px-4 mx-auto sm:px-8">
+<div class="container max-w-4xl px-4 mx-auto mrg-left sm:px-8">
     <div class="py-8">
         <div class="flex flex-row items-center justify-between w-full mb-1 sm:mb-0">
             <h2 class="text-2xl leading-tight">Resiliation</h2>
@@ -75,9 +78,9 @@
                                 </p>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                                <p class="text-gray-900 whitespace-no-wrap">
+                                <a href={route("gestion-clients.show", resiliation.client?.id)} use:inertia class="font-semibold text-gray-900 whitespace-no-wrap">
                                     {resiliation.client?.nom}
-                                </p>
+                                </a>
                             </td>
                             <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                                 <p class="text-gray-900 whitespace-no-wrap">
@@ -102,4 +105,3 @@
         </div>
     </div>
 </div>
-</Layout>

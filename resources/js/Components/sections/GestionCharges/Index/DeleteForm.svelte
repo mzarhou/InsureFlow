@@ -8,8 +8,11 @@
 
     export let charge;
 
+    const onSuccess = () => showConfirmModal = false;
     function handleSubmit () {
-        Inertia.delete(route("gestion-charges.destroy", charge?.id));
+        Inertia.delete(route("gestion-charges.destroy", charge?.id), {
+            onSuccess
+        });
     }
 </script>
 

@@ -1,7 +1,8 @@
 <script>
     import TypePaiement from "@/Components/app/TypePaiement.svelte"
-    import { Inertia } from "@inertiajs/inertia"
     import { useForm } from "@inertiajs/inertia-svelte";
+
+    export let closeModal;
 
     let options = [
         {
@@ -18,7 +19,6 @@
         },
     ]
 
-    let montant = "";
     export let credit = null;
 
     const form = useForm({
@@ -30,7 +30,11 @@
 
     function handleSubmit () {
         if (credit?.id != null) {
-            $form.post(route("paiement.store"));
+            $form.post(route("paiement.store"), {
+                onSuccess() {
+                    closeModal && closeModal();
+                }
+            });
         }
 
     }
@@ -55,6 +59,9 @@
                 <div class="w-full">
                     <div class="relative">
                         <TypePaiement bind:selectedValue={$form.type_paiement} options={options} />
+                        {#if !!$form.errors.type_paiement}
+                            <p class="text-red-500">{$form.errors.type_paiement}</p>
+                        {/if}
                     </div>
                 </div>
                 <div class="w-full">
@@ -63,8 +70,12 @@
                             bind:value={$form.montant}
                             type="text"
                             class="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white border border-gray-100 rounded-lg shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                            class:border-red-500={!!$form.errors.montant}
                             placeholder="Montant"
                         />
+                        {#if !!$form.errors.montant}
+                            <p class="text-red-500">{$form.errors.montant}</p>
+                        {/if}
                     </div>
                 </div>
                 <div>
