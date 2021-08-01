@@ -15,7 +15,7 @@ class CreateResiliationsTable extends Migration
     {
         Schema::create('resiliations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("contrat_id");
+            $table->unsignedBigInteger("contrat_id")->unique();
             $table->integer("montant");
             $table->unsignedBigInteger("montant_total");
             $table->timestamps();
