@@ -25,20 +25,6 @@ class GestionCreditTest extends TestCase
     }
 
     /** @test */
-    public function ajouter_paiement()
-    {
-        $credit = $this->getClientCredit();
-        $response = $this->post(route("paiement.store"), [
-            "credit_id" => $credit->id,
-            "montant" => 433333,
-            "type_paiement" => "Virement",
-        ]);
-
-        $response->assertStatus(302);
-        $response->assertRedirect(route("credit.show", $credit->id));
-    }
-
-    /** @test */
     public function mark_credit_as_completed()
     {
         $credit = $this->getClientCreditNotCompleted();
