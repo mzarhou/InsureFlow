@@ -30,7 +30,7 @@ class PaiementTest extends TestCase
     }
 
     /** @test */
-    public function can_not_pay_for_completed_credit_and_pay_for_incompleted()
+    public function can_not_pay_for_completed_credit_and_can_for_incompleted()
     {
         $credit = $this->getClientCredit();
 
