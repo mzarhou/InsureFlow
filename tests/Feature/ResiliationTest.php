@@ -4,20 +4,21 @@ namespace Tests\Feature;
 
 use App\Models\Contrat;
 use App\Models\User;
-use Database\Seeders\DatabaseSeeder;
+use Database\Seeders\ClientSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\CreateClient;
 use Tests\TestCase;
 
 class ResiliationTest extends TestCase
 {
     use RefreshDatabase;
+    use CreateClient;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->actingAs(User::factory()->create());
-        (new DatabaseSeeder)->run();
     }
 
     /**
@@ -27,7 +28,7 @@ class ResiliationTest extends TestCase
      */
     public function test_ajouter_resiliation()
     {
-        $contrat = Contrat::all()->random();
+        $contrat = $this->getClientContrat();
         $response = $this->post(route("resiliation.store"), [
             "montant" => 2343,
             "contrat_id" => $contrat->id
@@ -41,7 +42,7 @@ class ResiliationTest extends TestCase
 
     public function test_ajouter_resiliation_with_credit()
     {
-        $contrat = Contrat::all()->random();
+        $contrat = $this->getClientContratWithCreditNotCompleted();
         $response = $this->post(route("resiliation.store"), [
             "montant" => 100,
             "montant_total" => 2343,

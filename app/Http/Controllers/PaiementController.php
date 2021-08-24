@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePaiementRequest;
 use App\Models\Credit;
 use App\Models\PaiementCredit;
 use Illuminate\Http\Request;
@@ -9,86 +10,37 @@ use Illuminate\Http\Request;
 class PaiementController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePaiementRequest $request)
     {
-        $request->validate([
-            "type_paiement" => ["required", "in:Espece,Cheque,Credit,Virement"],
-            "montant" => ["required", "numeric"],
-            "credit_id" => ["exists:credits,id"]
-        ]);
-
+        if (($response = $this->storeCheck($request)) != null)
+            return $response;
         PaiementCredit::create($request->only("montant", "credit_id", "type_paiement"));
         return redirect()->route("credit.show", $request->credit_id)
             ->with("message", "succès");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    protected function storeCheck(Request $request)
     {
-        //
-    }
+        $credit = Credit::query()->findOrFail($request->credit_id);
+        $paiements = $credit->paiements->pluck("montant");
+        $paid_amount = (function () use ($paiements) {
+            $total = 0;
+            foreach ($paiements as $paiement) {
+                $total += $paiement;
+            }
+            return $total;
+        })();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $credit_rest_amount = $credit->montant_total - $paid_amount;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($request->montant > $credit_rest_amount)
+            return response('', 409);
+        else if (!!$credit->completed)
+            return response('', 403);
     }
 }

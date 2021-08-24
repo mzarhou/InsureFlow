@@ -1,8 +1,3 @@
-<script context="module">
-    import Layout from "@/Pages/Layouts/AuthLayout.svelte"
-    export const layout = Layout
-</script>
-
 <script>
     import { Inertia } from "@inertiajs/inertia";
 

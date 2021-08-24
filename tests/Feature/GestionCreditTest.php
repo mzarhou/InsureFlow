@@ -10,48 +10,24 @@ use App\Models\Vehicule;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\CreateClient;
 use Tests\TestCase;
 
 class GestionCreditTest extends TestCase
 {
     use RefreshDatabase;
+    use CreateClient;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->actingAs(User::factory()->create());
-        (new DatabaseSeeder())->run();
-    }
-
-    /** @test */
-    public function ajouter_paiement()
-    {
-        $credit = Credit::all()->random();
-        $response = $this->post(route("paiement.store"), [
-            "credit_id" => $credit->id,
-            "montant" => 433333,
-            "type_paiement" => "Virement",
-        ]);
-
-        $response->assertStatus(302);
-        $response->assertRedirect(route("credit.show", $credit->id));
     }
 
     /** @test */
     public function mark_credit_as_completed()
     {
-        $client = Client::factory()->create();
-        $vehicule = Vehicule::factory()->create([
-            "client_id" => $client->id
-        ]);
-        $contrat = Contrat::factory()->create([
-            "vehicule_id" => $vehicule->id
-        ]);
-        $credit = Credit::factory()->create([
-            "contrat_id" => $contrat->id,
-            "completed" => null
-        ]);
-
+        $credit = $this->getClientCreditNotCompleted();
         $response = $this->put(route("credit.complete", $credit));
 
         $this->assertNull($credit->completed);
