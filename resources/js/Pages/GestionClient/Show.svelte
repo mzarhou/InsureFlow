@@ -11,7 +11,7 @@
     export let client;
 </script>
 
-<main class="mrg-left p-4">
+<main class="p-4">
     <div class="max-w-screen-md mx-auto">
         <InfoPersonnelles client={client} />
         <VehiculesSection vehicules={client.vehicules} />

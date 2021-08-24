@@ -23,7 +23,7 @@
     }
 </script>
 
-<main class="mrg-left p-4">
+<main class="p-4">
     <div class="flex flex-wrap-reverse justify-between -mt-4">
         <a use:inertia href={route("gestion-clients.create")} class="px-16 py-2 mt-4 mr-4 text-lg font-semibold text-white bg-yellow-500 rounded-lg">+</a>
 
@@ -36,47 +36,51 @@
             </div>
         </form>
     </div>
-    <table class="table w-full p-4 mt-4 bg-white rounded-lg shadow">
-        <thead>
-            <tr>
-                <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
-                    #
-                </th>
-                <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
-                    Nom
-                </th>
-                <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
-                    CIN
-                </th>
-                <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
-                    Tele
-                </th>
-                <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
-                    Actions
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            {#each clients.data as client}
-            <tr class="text-gray-700">
-                <td class="dark:border-dark-5 p-4 border">
-                    {client?.id}
-                </td>
-                <td class="dark:border-dark-5 p-4 border">
-                    {client?.nom}
-                </td>
-                <td class="dark:border-dark-5 p-4 border">
-                    {client?.cin}
-                </td>
-                <td class="dark:border-dark-5 p-4 border">
-                    {client?.tele}
-                </td>
-                <td class="dark:border-dark-5 p-4 text-center border">
-                    <a href={route("gestion-clients.show", client?.id)} use:inertia class="text-green-500">Details</a>
-                </td>
-            </tr>
-            {/each}
-        </tbody>
-    </table>
+    <div class="sm:px-8 px-4 py-4 -mx-4 overflow-x-auto">
+        <div class="inline-block min-w-full overflow-hidden rounded-lg shadow">
+            <table class="table w-full">
+                <thead>
+                    <tr>
+                        <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
+                            #
+                        </th>
+                        <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
+                            Nom
+                        </th>
+                        <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
+                            CIN
+                        </th>
+                        <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
+                            Tele
+                        </th>
+                        <th class="dark:border-dark-5 whitespace-nowrap p-4 font-normal text-gray-900 border">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each clients.data as client}
+                    <tr class="text-gray-700">
+                        <td class="dark:border-dark-5 p-4 border">
+                            {client?.id}
+                        </td>
+                        <td class="dark:border-dark-5 p-4 border">
+                            {client?.nom}
+                        </td>
+                        <td class="dark:border-dark-5 p-4 border">
+                            {client?.cin}
+                        </td>
+                        <td class="dark:border-dark-5 p-4 border">
+                            {client?.tele}
+                        </td>
+                        <td class="dark:border-dark-5 p-4 text-center border">
+                            <a href={route("gestion-clients.show", client?.id)} use:inertia class="text-green-500">Details</a>
+                        </td>
+                    </tr>
+                    {/each}
+                </tbody>
+            </table>
+        </div>
+    </div>
     <Pagination links={clients.links} search={search} searched={searched} />
 </main>

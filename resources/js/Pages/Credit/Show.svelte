@@ -15,7 +15,7 @@
     $: montant_restant = credit.contrat.montant_total - credit.paiements.reduce((sum, paiement) => sum += paiement.montant, 0)
 </script>
 
-<div class="mrg-left max-w-2xl px-6 mx-auto mt-6">
+<div class="max-w-2xl px-6 mx-auto mt-6">
     <!-- add btn -->
     {#if ! credit.completed}
     <div class="flex items-center justify-between py-5 mt-2 rounded-t">

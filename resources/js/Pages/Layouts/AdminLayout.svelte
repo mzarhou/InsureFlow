@@ -17,7 +17,7 @@
     {#if !show}
         <button
             on:click={openSidebar}
-            class="absolute left-0 text-gray-600 open-btn"
+            class="open-btn absolute left-0 text-gray-600"
         >
             <svg
                 class="w-6 h-6"
@@ -37,14 +37,11 @@
 
     <Notification />
 
-    <div class="h-screen md:flex">
-        <div
-            style="z-index: 110"
-            class="absolute inset-y-0 z-50 bg-red-500 md:relative dark:bg-gray-800 sidebar"
-        >
-            <div class="flex flex-col bg-white sm:flex-row sm:justify-around">
+    <div class="md:flex h-screen bg-white">
+        <div class="sidebar md:relative dark:bg-gray-800 absolute inset-y-0 z-50 bg-white">
+            <div class="sm:flex-row sm:justify-around flex flex-col bg-white">
                 <button
-                    class="absolute right-0 text-gray-600 close-btn"
+                    class="close-btn absolute right-0 text-gray-600"
                     on:click={closeSidebar}
                 >
                     <svg
@@ -61,8 +58,8 @@
                         /></svg
                     >
                 </button>
-                <div class="h-screen w-72">
-                    <nav class="px-6 mt-10 ">
+                <div class="w-72 h-screen">
+                    <nav class=" px-6 mt-10">
                         {#each $routes as rt}
                             <a
                                 href={route(rt.name)}
@@ -82,7 +79,7 @@
                     <div class="absolute bottom-0 my-10">
                         <form
                             on:submit|preventDefault={logout}
-                            class="flex items-center px-8 py-2 text-gray-600 transition-colors duration-200 hover:text-gray-800"
+                            class="hover:text-gray-800 flex items-center px-8 py-2 text-gray-600 transition-colors duration-200"
                         >
                             <svg
                                 class="w-6 h-6"
@@ -104,13 +101,17 @@
             </div>
         </div>
 
-        <div class="flex-grow h-screen overflow-y-auto">
+        <div class="pd-left flex-grow h-screen pl-10 overflow-y-auto">
             <slot />
         </div>
     </div>
 </UseSidebar>
 
 <style>
+    .sidebar {
+        z-index: 110;
+        transform: translate3d(0, 0, 0);
+    }
     .close-btn {
         margin-right: 10px;
         margin-top: 10px;

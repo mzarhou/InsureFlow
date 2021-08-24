@@ -19,7 +19,7 @@
     $: revenu = contratsTotal + paiementsTotal - resiliationsTotal - chargesTotal;
 </script>
 
-<div class="mrg-left px-4 py-8">
+<div class="px-4 py-8">
     <div class="text-2xl text-gray-700">Les statistiques du mois</div>
     <hr class="mt-2" />
     <div class="lg:grid-cols-2 xl:grid-cols-3 grid gap-4 mt-6">
