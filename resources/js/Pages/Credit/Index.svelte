@@ -33,7 +33,7 @@
         );
 </script>
 
-<div class="mrg-left sm:px-8 container max-w-4xl px-4 mx-auto">
+<div class="sm:px-8 container max-w-4xl px-4 mx-auto">
     <div class="py-8">
         <div class="sm:mb-0 flex flex-row items-center justify-between w-full mb-1">
             <h2 class="text-2xl leading-tight">Credit</h2>

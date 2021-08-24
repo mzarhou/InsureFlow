@@ -42,7 +42,7 @@
     }
 </script>
 
-<div class="px-4 pb-10 mrg-left">
+<div class="px-4 pb-10">
     <div class="sticky top-0 py-4 bg-white" style="z-index: 100;">
         <div class="max-w-5xl mx-auto">
             <h2 class="text-2xl">Ajouter Un Client</h2>
@@ -71,7 +71,7 @@
                 </button>
             {/if}
             {#if $step < (components.length - 1)}
-                <button on:click={next} class="flex px-4 py-2 text-white bg-green-400 rounded-md justify-self-end">
+                <button on:click={next} class="justify-self-end flex px-4 py-2 text-white bg-green-400 rounded-md">
                     Suivant
                     <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                 </button>

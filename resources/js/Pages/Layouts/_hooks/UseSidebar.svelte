@@ -30,12 +30,12 @@
     // handle lef margin for containers
     $: {
         if (document) {
-            let elements = document.querySelectorAll("body .mrg-left");
+            let elements = document.querySelectorAll("body .pd-left");
             elements.forEach((el) => {
                 if (show) {
-                    el.classList.remove("ml-10");
+                    el.classList.remove("pl-10");
                 } else {
-                    el.classList.add("ml-10");
+                    el.classList.add("pl-10");
                 }
             });
         }
