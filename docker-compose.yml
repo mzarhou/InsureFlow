@@ -1,0 +1,18 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    postgres:
+      image: postgres:16.0-alpine3.18
+      restart: always
+      ports:
+        - 5432:5432
+      environment:
+        POSTGRES_DB: '${DB_DATABASE}'
+        POSTGRES_USER:  '${DB_USERNAME}'
+        POSTGRES_PASSWORD:  '${DB_PASSWORD}'
+      volumes:
+        - postgres-data:/var/lib/postgresql/data
+
+volumes:
+    postgres-data:
+        driver: local
