@@ -5,4 +5,3 @@ cp .env.example .env
 php artisan key:generate
 docker compose up --build -d
 php artisan migrate --seed
-php artisan serve
