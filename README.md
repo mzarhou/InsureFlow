@@ -1,6 +1,6 @@
-# Saham: Assurance Agency Management System
+# InsureFlow: Assurance Agency Management System
 **Overview:**
-Saham is a comprehensive Assurance Agency Management System completed during the last year of my studies at [ESTM](http://www.est-umi.ac.ma/) school in 2021. Saham streamlines the management of clients, credit, credit payments, contracts, vehicles, and agency charges. It offers a user-friendly interface for seamless navigation, robust security measures, and a powerful set of features tailored for the insurance industry.
+InsureFlow is a comprehensive Assurance Agency Management System completed during the last year of my studies at [ESTM](http://www.est-umi.ac.ma/) school in 2021. InsureFlow streamlines the management of clients, credit, credit payments, contracts, vehicles, and agency charges. It offers a user-friendly interface for seamless navigation, robust security measures, and a powerful set of features tailored for the insurance industry.
 
 **Used Technologies:**
 - [Laravel](https://laravel.com/)
@@ -18,7 +18,7 @@ Before you begin, ensure you have the following prerequisites installed:
 
 **Getting Started:**
 
-1. Clone the repository: git clone https://github.com/mzarhou/saham.git
+1. Clone the repository: git clone https://github.com/mzarhou/InsureFlow.git
 2. setup the project: `./setup`
 3. Run the server: `php artisan serve`
 
